@@ -16,7 +16,7 @@ Also allows a user to identify which institute they are from.
 
 == Installation ==
 
-1. Upload `bc-validate` to the `/wp-content/plugins/` directory
+1. Upload `validate-by-domain` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==

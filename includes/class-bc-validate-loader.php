@@ -5,8 +5,8 @@
  *
  * @since      1.0.0
  *
- * @package    BC_Validate
- * @subpackage BC_Validate/includes
+ * @package    Validate_By_Domain
+ * @subpackage Validate_By_Domain/includes
  */
 
 /**
@@ -16,8 +16,8 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    BC_Validate
- * @subpackage BC_Validate/includes
+ * @package    Validate_By_Domain
+ * @subpackage Validate_By_Domain/includes
  * @author     Your Name <email@example.com>
  */
 class BC_Validate_Loader {

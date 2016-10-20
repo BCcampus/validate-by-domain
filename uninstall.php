@@ -22,7 +22,7 @@
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    BC_Validate
+ * @package    Validate_By_Domain
  */
 
 // If uninstall not called from WordPress, then exit.

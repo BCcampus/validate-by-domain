@@ -6,8 +6,8 @@
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    BC_Validate
- * @subpackage BC_Validate/public
+ * @package    Validate_By_Domain
+ * @subpackage Validate_By_Domain/public
  */
 
 /**
@@ -16,8 +16,8 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the dashboard-specific stylesheet and JavaScript.
  *
- * @package    BC_Validate
- * @subpackage BC_Validate/public
+ * @package    Validate_By_Domain
+ * @subpackage Validate_By_Domain/public
  * @author     Your Name <email@example.com>
  */
 class BC_Validate_Public {

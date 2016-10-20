@@ -5,8 +5,8 @@
  *
  * @since      1.0.0
  *
- * @package    BC_Validate
- * @subpackage BC_Validate/includes
+ * @package    Validate_By_Domain
+ * @subpackage Validate_By_Domain/includes
  */
 
 /**
@@ -15,8 +15,8 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    BC_Validate
- * @subpackage BC_Validate/includes
+ * @package    Validate_By_Domain
+ * @subpackage Validate_By_Domain/includes
  * @author     Your Name <email@example.com>
  */
 class BC_Validate_Deactivator {
@@ -33,6 +33,6 @@ class BC_Validate_Deactivator {
 			return;
 		}
 
-		delete_site_option( 'bc-validate-activated' );	}
+		delete_site_option( 'validate-by-domain-activated' );	}
 
 }

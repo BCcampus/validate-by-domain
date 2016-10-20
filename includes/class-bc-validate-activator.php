@@ -3,8 +3,8 @@
 /** 
  * @since      1.0.0
  *
- * @package    BC_Validate
- * @subpackage BC_Validate/includes
+ * @package    Validate_By_Domain
+ * @subpackage Validate_By_Domain/includes
  */
 
 /**
@@ -13,8 +13,8 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    BC_Validate
- * @subpackage BC_Validate/includes
+ * @package    Validate_By_Domain
+ * @subpackage Validate_By_Domain/includes
  * @author     Your Name <email@example.com>
  */
 class BC_Validate_Activator {
@@ -31,7 +31,7 @@ class BC_Validate_Activator {
 			return;
 		}
 
-		add_site_option( 'bc-validate-activated', true );
+		add_site_option( 'validate-by-domain-activated', true );
 	}
 
 }

@@ -6,8 +6,8 @@
  *
  * @since      1.0.0
  *
- * @package    BC_Validate
- * @subpackage BC_Validate/includes
+ * @package    Validate_By_Domain
+ * @subpackage Validate_By_Domain/includes
  */
 
 /**
@@ -20,8 +20,8 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    BC_Validate
- * @subpackage BC_Validate/includes
+ * @package    Validate_By_Domain
+ * @subpackage Validate_By_Domain/includes
  * @author     Your Name <email@example.com>
  */
 class BC_Validate {
@@ -65,7 +65,7 @@ class BC_Validate {
 	 */
 	public function __construct() {
 
-		$this->bc_validate = 'bc-validate';
+		$this->bc_validate = 'validate-by-domain';
 		$this->version = '1.0.0';
 
 		$this->load_dependencies();
