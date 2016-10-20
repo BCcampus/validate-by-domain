@@ -10,17 +10,6 @@
  * @subpackage Validate_By_Domain/includes
  */
 
-/**
- * Define the internationalization functionality.
- *
- * Loads and defines the internationalization files for this plugin
- * so that it is ready for translation.
- *
- * @since      1.0.0
- * @package    Validate_By_Domain
- * @subpackage Validate_By_Domain/includes
- * @author     Your Name <email@example.com>
- */
 class BC_Validate_i18n {
 
 	/**

@@ -10,16 +10,6 @@
  * @subpackage Validate_By_Domain/public
  */
 
-/**
- * The public-facing functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the dashboard-specific stylesheet and JavaScript.
- *
- * @package    Validate_By_Domain
- * @subpackage Validate_By_Domain/public
- * @author     Your Name <email@example.com>
- */
 class BC_Validate_Public {
 
 	/**

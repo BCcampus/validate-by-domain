@@ -9,16 +9,6 @@
  * @subpackage Validate_By_Domain/includes
  */
 
-/**
- * Fired during plugin deactivation.
- *
- * This class defines all code necessary to run during the plugin's deactivation.
- *
- * @since      1.0.0
- * @package    Validate_By_Domain
- * @subpackage Validate_By_Domain/includes
- * @author     Your Name <email@example.com>
- */
 class BC_Validate_Deactivator {
 
 	/**

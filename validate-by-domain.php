@@ -1,10 +1,11 @@
 <?php
-
 /** 
  * This file is read by WordPress to generate the plugin information in the plugin
  * Dashboard. This file also includes all of the dependencies used by the plugin,
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
+ *
+ * Forked from bc-validate plugin
  *
  * @since             1.0.0
  * @package           Validate_By_Domain
@@ -13,8 +14,8 @@
  * Plugin Name:       BC Instititutions Validator
  * Description:       Provides a mechanism to validate whether a user's email address is part of the BC Post-Secondary System
  * Version:           1.0.0
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPL-3.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       validate-by-domain
  * Domain Path:       /languages
  */

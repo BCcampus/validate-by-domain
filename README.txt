@@ -1,11 +1,11 @@
 === BC Post-Secondary Validator ===
-Contributors: bdolor
+Contributors: bdolor, rwestmacott
 Tags: authentication
-Requires at least: 4.1
-Tested up to: 4.1
+Requires at least: 4.6
+Tested up to: 4.6
 Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Provides a mechanism to validate whether a user's email address is part of the BC Post-Secondary System.
 
