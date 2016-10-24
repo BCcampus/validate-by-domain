@@ -209,6 +209,7 @@ class Validate_By_Domain_Public {
       "bcrpa" => "BC Recreation and Parks Association",
       "caddra" => "Canadian Attention Deficit Hyperactivity Disorder Resource Alliance",
       "cam" => "Camosun College",
+      "cam" => "Camosun College",      
       "can" => "Canadian Cancer Society",
       "caphc" => "Canadian Association of Paediatric Health Centres",
       "capu" => "Capilano University",
