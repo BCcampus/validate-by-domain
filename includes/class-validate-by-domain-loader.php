@@ -9,7 +9,7 @@
  * @subpackage Validate_By_Domain/includes
  */
 
-class BC_Validate_Loader {
+class Validate_By_Domain_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

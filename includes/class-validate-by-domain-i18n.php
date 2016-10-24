@@ -10,7 +10,7 @@
  * @subpackage Validate_By_Domain/includes
  */
 
-class BC_Validate_i18n {
+class Validate_By_Domain_i18n {
 
 	/**
 	 * The domain specified for this plugin.

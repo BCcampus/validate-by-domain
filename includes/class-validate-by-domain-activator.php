@@ -9,7 +9,7 @@
  * @subpackage Validate_By_Domain/includes
  */
 
-class BC_Validate_Activator {
+class Validate_By_Domain_Activator {
 
 	/**
 	 * Short Description. (use period)

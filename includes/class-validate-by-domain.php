@@ -10,7 +10,7 @@
  * @subpackage Validate_By_Domain/includes
  */
 
-class BC_Validate {
+class Validate_By_Domain {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -82,21 +82,21 @@ class BC_Validate {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-bc-validate-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-validate-by-domain-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-bc-validate-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-validate-by-domain-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-bc-validate-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-validate-by-domain-public.php';
 
-		$this->loader = new BC_Validate_Loader();
+		$this->loader = new Validate_By_Domain_Loader();
 
 	}
 
@@ -111,7 +111,7 @@ class BC_Validate {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new BC_Validate_i18n();
+		$plugin_i18n = new Validate_By_Domain_i18n();
 		$plugin_i18n->set_domain( $this->get_bc_validate() );
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
@@ -143,7 +143,7 @@ class BC_Validate {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new BC_Validate_Public( $this->get_bc_validate(), $this->get_version() );
+		$plugin_public = new Validate_By_Domain_Public( $this->get_bc_validate(), $this->get_version() );
 
 //		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 //		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );

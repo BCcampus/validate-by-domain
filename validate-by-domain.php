@@ -11,8 +11,8 @@
  * @package           Validate_By_Domain
  *
  * @wordpress-plugin
- * Plugin Name:       BC Instititutions Validator
- * Description:       Provides a mechanism to validate whether a user's email address is part of the BC Post-Secondary System
+ * Plugin Name:       BC Instititutions Domain Validator
+ * Description:       Created for the Early years project. Provides a mechanism to validate whether a user's email address is part of the BC Post-Secondary System
  * Version:           1.0.0
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
@@ -30,8 +30,8 @@ if ( ! defined( 'WPINC' ) ) {
  * This action is documented in includes/class-plugin-name-activator.php
  */
 function activate_bc_validate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bc-validate-activator.php';
-	BC_Validate_Activator::activate();
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-validate-by-domain-activator.php';
+	Validate_By_Domain_Activator::activate();
 }
 
 /**
@@ -39,8 +39,8 @@ function activate_bc_validate() {
  * This action is documented in includes/class-plugin-name-deactivator.php
  */
 function deactivate_bc_validate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bc-validate-deactivator.php';
-	BC_Validate_Deactivator::deactivate();
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-validate-by-domain-deactivator.php';
+	Validate_By_Domain_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_bc_validate' );
@@ -61,10 +61,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-validate-by-domain.php';
  *
  * @since    1.0.0
  */
-function run_bc_validate() {
+function run_validate_by_domain() {
 
-	$plugin = new BC_Validate();
+	$plugin = new Validate_By_Domain();
 	$plugin->run();
 
 }
-run_bc_validate();
+run_validate_by_domain();
