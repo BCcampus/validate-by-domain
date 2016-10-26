@@ -419,30 +419,26 @@ class Validate_By_Domain_Public {
 	 * @return type
 	 */
 	public function signupUserBC( $result ) {
-
-		if ( isset( $_POST ) && 'validate-user-signup' != $_POST['stage'] ) {
-			return $result;
+        global $bp;
+        
+		if ( isset( $_POST ) && ( 'request-details' != $bp->signup->step )) {
+			return;
 		}
 
-		$wp_error_email = $result['errors']->get_error_message( 'user_email' );
-		
-		// if WP finds an error with email
-		if ( ! empty( $_POST['user_email'] ) && empty( $wp_error_email ) ) {
-			$domain = $this->parseEmail( $_POST['user_email'] );
+            // if WP finds an error with email
+		if ( ! empty( $_POST['signup_email'] ) && empty( $wp_error_email ) ) {
+			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$ok = $this->checkDomain( $domain );
 
 			if ( false == $ok ) {
-				$result['errors']->add( 'user_email', 'Please use an email address from a post-secondary institution in British Columbia' );
+				$bp->signup->errors['signup_email'] = 'Please use an email address from an allowed agency or institution within British Columbia';
 			}
 		}
 
-		// check if they've indicated which bc institution they belong to
-		if ( empty( $_POST['bc_inst'] ) ) {
-			$result['errors']->add( 'bc_inst', 'Please indicate which BC institution you are currently employed with' );
+            // check if they've indicated which bc institution they belong to
+		if ( empty( $_POST['field_4'] ) ) {
+			$bp->signup->errors['field_4'] = 'Please indicate which BC institution you are currently employed with';
 		}
-
-		// and now back to our regular programming
-		return $result;
 	}
 
 	/**
