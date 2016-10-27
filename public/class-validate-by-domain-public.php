@@ -413,20 +413,18 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
-	 * Validates the user input and throws errors
-	 * 
-	 * @param array $result
-	 * @return type
+	 * Validates the user input and returns appropriate error.
+     *
 	 */
-	public function signupUserBC( $result ) {
+	public function signupUserBC() {
         global $bp;
-        
+  
 		if ( isset( $_POST ) && ( 'request-details' != $bp->signup->step )) {
 			return;
 		}
 
-            // if WP finds an error with email
-		if ( ! empty( $_POST['signup_email'] ) && empty( $wp_error_email ) ) {
+            // Validate the format of the email address prior to passing it to the allowable domain checker
+		if ( filter_var( $_POST['signup_email'], FILTER_VALIDATE_EMAIL )) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$ok = $this->checkDomain( $domain );
 
@@ -434,11 +432,8 @@ class Validate_By_Domain_Public {
 				$bp->signup->errors['signup_email'] = 'Please use an email address from an allowed agency or institution within British Columbia';
 			}
 		}
-
-            // check if they've indicated which bc institution they belong to
-		if ( empty( $_POST['field_4'] ) ) {
-			$bp->signup->errors['field_4'] = 'Please indicate which BC institution you are currently employed with';
-		}
+        else 
+            $bp->signup->errors['signup_email'] = 'There appears to be a problem in the email address. Please review and make any corrections';
 	}
 
 	/**
