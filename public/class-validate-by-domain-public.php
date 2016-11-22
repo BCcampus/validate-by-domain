@@ -196,7 +196,7 @@ class Validate_By_Domain_Public {
         'csf.bc.ca',
         
             // Child Development centers
-        'bvcdc.ca'
+        'bvcdc.ca',
         'cdcfsj.ca',
         'kitimatcdc.ca',
         'cdcpg.org',
@@ -219,7 +219,7 @@ class Validate_By_Domain_Public {
         'rmcdc.com',
         'sharesociety.ca',
         'sccss.ca',
-        'bc-cfa.org
+        'bc-cfa.org',
 	);
     
 	private $bc_inst = array(
