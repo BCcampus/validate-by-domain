@@ -148,9 +148,8 @@ class Validate_By_Domain {
 //		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 //		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_filter( 'bp_signup_validate', $plugin_public, 'signupUserBC' );
-		$this->loader->add_action( 'signup_extra_fields', $plugin_public, 'signupExtraBC' );
-		$this->loader->add_filter( 'add_signup_meta', $plugin_public, 'signupMetaBC' );
-		$this->loader->add_action( 'before_signup_form', $plugin_public, 'signupStyleBC' );
+//		$this->loader->add_action( 'bp_signup_profile_fields', $plugin_public, 'signupExtraBC' );
+//		$this->loader->add_filter( 'add_signup_meta', $plugin_public, 'signupMetaBC' );
 
 	}
 
