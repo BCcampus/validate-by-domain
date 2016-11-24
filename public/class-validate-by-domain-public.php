@@ -298,9 +298,6 @@ class Validate_By_Domain_Public {
 			}
 		}
 
-//		add_action( 'user_register', function( $user_id ){
-//			update_user_meta( $user_id, 'wp_capabilities', 'contributor' );
-//		} );
 	}
 
 	/**
