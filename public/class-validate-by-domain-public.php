@@ -287,7 +287,8 @@ class Validate_By_Domain_Public {
 			return;
 		}
 
-		// Only apply the filter on an Organizer role
+		// Only filter email addresses for Organizers
+		// (must be from a recognized agency)
 		if ( 0 === strcmp( $_POST['field_3'], 'Organizer' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$ok     = $this->checkDomain( $domain );
@@ -296,6 +297,10 @@ class Validate_By_Domain_Public {
 				$bp->signup->errors['signup_email'] = 'Please use an email address from an allowed agency or institution within British Columbia';
 			}
 		}
+
+//		add_action( 'user_register', function( $user_id ){
+//			update_user_meta( $user_id, 'wp_capabilities', 'contributor' );
+//		} );
 	}
 
 	/**
@@ -380,21 +385,49 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
+	 * At the moment of signup, store a post value in wp_signups table
 	 *
-	 * @param array $meta
+	 * @param array $usermeta
 	 *
-	 * @return array
+	 * @return array $usermeta
 	 */
-	public function signupMetaBC( $meta ) {
-		if ( isset( $_POST['eypd_role'] ) ) {
-			$add_meta = array(
-				'eypd_role' => $_POST['eypd_role'],
-			);
-			$meta     = array_merge( $add_meta, $meta );
+	public function signupMetaBC( $usermeta ) {
+
+		if ( isset( $_POST['field_3'] ) ) {
+			$usermeta['eypd_role'] = $_POST['field_3'];
 		}
 
-		return $meta;
+		return $usermeta;
 	}
 
+	/**
+	 * At the moment after signup, during activation, update capabilities to contributor
+	 *
+	 * @param $signup
+	 *
+	 * @return mixed
+	 */
 
+	function mapRoleToCapability( $user_id ) {
+		global $wpdb;
+
+		if ( ! is_int( $user_id ) ) {
+			return $user_id;
+		} else {
+			$current = get_user_by( 'id', $user_id );
+
+			$query = $wpdb->prepare( 'SELECT `meta` FROM `wp_signups` WHERE `user_login` = %s ', $current->user_login );
+			$meta  = $wpdb->get_row( $query );
+
+			$meta = maybe_unserialize( $meta->meta );
+
+			//check if the signup usermeta value is present
+			if ( isset( $meta['eypd_role'] ) && 0 === strcmp( 'Organizer', $meta['eypd_role'] ) ) {
+				$current->set_role( 'contributor' );
+			}
+
+		}
+
+		return $user_id;
+	}
 }
