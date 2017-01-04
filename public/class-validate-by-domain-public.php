@@ -289,7 +289,7 @@ class Validate_By_Domain_Public {
 
 		// Only filter email addresses for Organizers
 		// (must be from a recognized agency)
-		if ( 0 === strcmp( $_POST['field_3'], 'Organizer' ) ) {
+		if ( 0 === strcmp( $_POST['field_155'], 'Organizer' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$ok     = $this->checkDomain( $domain );
 
@@ -390,8 +390,8 @@ class Validate_By_Domain_Public {
 	 */
 	public function signupMetaBC( $usermeta ) {
 
-		if ( isset( $_POST['field_3'] ) ) {
-			$usermeta['eypd_role'] = $_POST['field_3'];
+		if ( isset( $_POST['field_155'] ) ) {
+			$usermeta['eypd_role'] = $_POST['field_155'];
 		}
 
 		return $usermeta;
@@ -400,9 +400,9 @@ class Validate_By_Domain_Public {
 	/**
 	 * At the moment after signup, during activation, update capabilities to contributor
 	 *
-	 * @param $signup
+	 * @param $user_id
 	 *
-	 * @return mixed
+	 * @return int $user_id
 	 */
 
 	function mapRoleToCapability( $user_id ) {
