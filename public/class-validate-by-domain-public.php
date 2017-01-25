@@ -341,21 +341,15 @@ class Validate_By_Domain_Public {
 			return false;
 		}
 
-		if ( in_array( $domain, $this->bc_domains ) ) {
-			return true;
-		}
-
 		// target subdomain, ex: geog.ubc.ca
-		$parts = explode( '.', $domain );
+		// target subdomains
+		$parts       = explode( '.', $domain );
+		$tld         = array_pop( $parts );
+		$sld         = array_pop( $parts );
+		$base_domain = $sld . '.' . $tld;
 
-		if ( count( $parts ) == 3 ) {
-			$base_domain = $parts[1] . '.' . $parts[2];
-
-			foreach ( $this->bc_domains as $inst ) {
-				if ( false !== strpos( $inst, $base_domain ) ) {
-					return true;
-				}
-			}
+		if ( in_array( $base_domain, $this->bc_domains ) ) {
+			return true;
 		}
 
 		return false;
