@@ -97,7 +97,6 @@ class Validate_By_Domain_Public {
 		'viha.ca ',
 		'viu.ca',
 		'yukoncollege.yk.ca',
-
 		// CCRR - Child Care Resource Referral
 		'abbotsfordccrr.ca',
 		'islandswellnesssociety.com',
@@ -131,7 +130,6 @@ class Validate_By_Domain_Public {
 		'coastccrr.ca',
 		'volunteerrichmond.ca',
 		'vanymca.org',
-
 		// School Districts
 		'sd5.bc.ca',
 		'sd6.bc.ca',
@@ -193,7 +191,6 @@ class Validate_By_Domain_Public {
 		'sd91.bc.ca',
 		'nisgaa.bc.ca',
 		'csf.bc.ca',
-
 		// Child Development centers
 		'bvcdc.ca',
 		'cdcfsj.ca',
@@ -219,6 +216,16 @@ class Validate_By_Domain_Public {
 		'sharesociety.ca',
 		'sccss.ca',
 		'bc-cfa.org',
+		// Uncategorized
+		'cbal.org',
+		'deltakids.ca',
+		'abbotsfordcommunityservices.com',
+		'froghollow.bc.ca',
+		'options.bc.ca',
+		'reachchild.org',
+		'gv.ymca.ca',
+		'bvcdc.ca',
+		'unitedwaycso.com',
 	);
 
 	/**
