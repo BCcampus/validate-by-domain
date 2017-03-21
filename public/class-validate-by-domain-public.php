@@ -226,6 +226,13 @@ class Validate_By_Domain_Public {
 		'gv.ymca.ca',
 		'bvcdc.ca',
 		'unitedwaycso.com',
+		'bcacdi.org',
+		'gov.bc.ca',
+		'sccssociety.org',
+		'kelownachildcare.com',
+		'sfrs.ca',
+		'catchcoalition.ca',
+		'pacific-care.bc.ca',
 	);
 
 	/**
