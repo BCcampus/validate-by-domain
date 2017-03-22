@@ -235,6 +235,8 @@ class Validate_By_Domain_Public {
 		'pacific-care.bc.ca',
 	);
 
+	private $field_val;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -246,6 +248,24 @@ class Validate_By_Domain_Public {
 
 		$this->bc_validate = $bc_validate;
 		$this->version     = $version;
+		$this->setFieldNum();
+
+	}
+
+	/**
+	 * set different field values depending on prod or dev env
+	 */
+	public function setFieldNum() {
+		$host = parse_url( network_site_url(), PHP_URL_HOST );
+
+		if ( strcmp( 'earlyyearsbc.ca', $host ) ) {
+			$field_val = '155';
+		} else {
+			$field_val = '3';
+		}
+
+		$this->field_val = $field_val;
+
 	}
 
 	/**
@@ -296,14 +316,14 @@ class Validate_By_Domain_Public {
 	 */
 	public function signupUserBC() {
 		global $bp;
-
+		$field_val = 'field_' . $this->field_val;
 		if ( isset( $_POST ) && ( 'request-details' != $bp->signup->step ) ) {
 			return;
 		}
 
 		// Only filter email addresses for Organizers
 		// (must be from a recognized agency)
-		if ( 0 === strcmp( $_POST['field_155'], 'Organizer' ) ) {
+		if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$ok     = $this->checkDomain( $domain );
 
@@ -397,9 +417,10 @@ class Validate_By_Domain_Public {
 	 * @return array $usermeta
 	 */
 	public function signupMetaBC( $usermeta ) {
+		$field_val = 'field_' . $this->field_val;
 
-		if ( isset( $_POST['field_155'] ) ) {
-			$usermeta['eypd_role'] = $_POST['field_155'];
+		if ( isset( $_POST[ $field_val ] ) ) {
+			$usermeta['eypd_role'] = $_POST[ $field_val ];
 		}
 
 		return $usermeta;
