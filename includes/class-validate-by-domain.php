@@ -96,6 +96,11 @@ class Validate_By_Domain {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-validate-by-domain-public.php';
 
+		/**
+		 * Class responsible for a honey pot, to thwart spam accounts from being created
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-honey-pot.php';
+
 		$this->loader = new Validate_By_Domain_Loader();
 
 	}
@@ -144,13 +149,15 @@ class Validate_By_Domain {
 	private function define_public_hooks() {
 
 		$plugin_public = new Validate_By_Domain_Public( $this->get_bc_validate(), $this->get_version() );
+		$honey_pot = new HoneyPot();
 
-//		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-//		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_filter( 'bp_signup_validate', $plugin_public, 'signupUserBC' );
 //		$this->loader->add_action( 'bp_signup_profile_fields', $plugin_public, 'signupExtraBC' );
 		$this->loader->add_filter( 'bp_signup_usermeta', $plugin_public, 'signupMetaBC' );
 		$this->loader->add_filter( 'bp_core_activate_account', $plugin_public, 'mapRoleToCapability' );
+		$this->loader->add_action( 'bp_after_signup_profile_fields', $honey_pot, 'addHoneyPot' );
+		$this->loader->add_filter( 'bp_core_validate_user_signup', $honey_pot, 'checkHoneyPot' );
+
 	}
 
 	/**
