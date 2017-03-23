@@ -235,7 +235,23 @@ class Validate_By_Domain_Public {
 		'pacific-care.bc.ca',
 	);
 
+	/**
+	 * @var value of the learner/organizer field
+	 */
 	private $field_val;
+
+	/**
+	 * @var array list of problem domains
+	 */
+	private $spam_domains = array(
+		'marvsz.com',
+		'kellergy.com',
+		'pixymix.com',
+		'mail.ru',
+		'marrived.com',
+		'poczxneolinka.info',
+		'namemerfo.com',
+	);
 
 	/**
 	 * Initialize the class and set its properties.
@@ -258,7 +274,7 @@ class Validate_By_Domain_Public {
 	public function setFieldNum() {
 		$host = parse_url( network_site_url(), PHP_URL_HOST );
 
-		if ( strcmp( 'earlyyearsbc.ca', $host ) ) {
+		if ( 0 === strcmp( 'earlyyearsbc.ca', $host ) ) {
 			$field_val = '155';
 		} else {
 			$field_val = '3';
@@ -321,9 +337,8 @@ class Validate_By_Domain_Public {
 			return;
 		}
 
-		// Only filter email addresses for Organizers
-		// (must be from a recognized agency)
-		if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
+		// Filter email addresses for Organizers, check for spam domains on Learners
+		if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) || 0 === strcmp( $_POST[ $field_val ], 'Learner' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$ok     = $this->checkDomain( $domain );
 
@@ -375,7 +390,8 @@ class Validate_By_Domain_Public {
 		$sld         = array_pop( $parts );
 		$base_domain = $sld . '.' . $tld;
 
-		if ( in_array( $base_domain, $this->bc_domains ) ) {
+		// return true if the domain is either in the list, or it's not spam, or if it's both not spam and a bc domain
+		if ( in_array( $base_domain, $this->bc_domains ) || ! in_array( $base_domain, $this->spam_domains ) ) {
 			return true;
 		}
 

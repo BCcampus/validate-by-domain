@@ -49,6 +49,10 @@ class HoneyPot {
 	 *
 	 * @filter vpd_honeypot_name
 	 * @filter vpd_honeypot_fail_message
+	 *
+	 * @param array $result
+	 *
+	 * @return array
 	 */
 	function checkHoneyPot( $result = array() ) {
 		global $bp;
