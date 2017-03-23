@@ -251,6 +251,7 @@ class Validate_By_Domain_Public {
 		'marrived.com',
 		'poczxneolinka.info',
 		'namemerfo.com',
+		'wugjeyxwgv.pl',
 	);
 
 	/**
