@@ -252,6 +252,10 @@ class Validate_By_Domain_Public {
 		'poczxneolinka.info',
 		'namemerfo.com',
 		'wugjeyxwgv.pl',
+		'360ezzz.com',
+		'ultramoonbear.com',
+		'islaby.com',
+		'360ezzz.com',
 	);
 
 	/**
