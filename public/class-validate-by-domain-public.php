@@ -282,7 +282,7 @@ class Validate_By_Domain_Public {
 		if ( 0 === strcmp( 'earlyyearsbc.ca', $host ) ) {
 			$field_val = '155';
 		} else {
-			$field_val = '3';
+			$field_val = '5';
 		}
 
 		$this->field_val = $field_val;
@@ -343,12 +343,21 @@ class Validate_By_Domain_Public {
 		}
 
 		// Filter email addresses for Organizers, check for spam domains on Learners
-		if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) || 0 === strcmp( $_POST[ $field_val ], 'Learner' ) ) {
+		if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$ok     = $this->checkDomain( $domain );
 
 			if ( false == $ok ) {
 				$bp->signup->errors['signup_email'] = 'Please use an email address from an allowed agency or institution within British Columbia';
+			}
+		}
+
+		if ( 0 === strcmp( $_POST[ $field_val ], 'Learner' ) ) {
+			$domain = $this->parseEmail( $_POST['signup_email'] );
+			$ok     = $this->checkSpamDomain( $domain );
+
+			if ( false == $ok ) {
+				$bp->signup->errors['signup_email'] = 'error';
 			}
 		}
 
@@ -396,7 +405,35 @@ class Validate_By_Domain_Public {
 		$base_domain = $sld . '.' . $tld;
 
 		// return true if the domain is either in the list, or it's not spam, or if it's both not spam and a bc domain
-		if ( in_array( $base_domain, $this->bc_domains ) || ! in_array( $base_domain, $this->spam_domains ) ) {
+		if ( in_array( $base_domain, $this->bc_domains ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Compares the domain of the user's email to a blacklist
+	 *
+	 * @param $domain
+	 *
+	 * @return bool
+	 */
+	private function checkSpamDomain( $domain ) {
+
+		if ( empty( $domain ) ) {
+			return false;
+		}
+
+		// target subdomain, ex: geog.ubc.ca
+		// target subdomains
+		$parts       = explode( '.', $domain );
+		$tld         = array_pop( $parts );
+		$sld         = array_pop( $parts );
+		$base_domain = $sld . '.' . $tld;
+
+		// return true if the domain is either in the list, or it's not spam, or if it's both not spam and a bc domain
+		if ( ! in_array( $base_domain, $this->spam_domains ) ) {
 			return true;
 		}
 
