@@ -35,27 +35,22 @@ class Validate_By_Domain_Public {
 	 * @var array - list of email domians for bc instiutions
 	 */
 	private $bc_domains = array(
-		'acc-society.bc.ca',
 		'ahsabc.com',
 		'all-nations.ca',
+		'bc.ca',
 		'bcaafc.com',
 		'bcasw.org',
 		'bccampus.ca',
 		'bccf.ca',
 		'bchealthyliving.ca',
 		'bcit.ca',
-		'bcrpa.bc.ca',
 		'caddra.ca',
-		'camosun.bc.ca',
 		'camosun.ca',
 		'cancer.ca',
-		'caphc.org ',
+		'caphc.org',
 		'capilanou.ca',
 		'childhoodobesityfoundation.ca',
 		'childrenshearing.ca',
-		'cnc.bc.ca',
-		'cotr.bc.ca',
-		'cw.bc.ca',
 		'douglascollege.ca',
 		'ecebc.ca',
 		'ecuad.ca',
@@ -68,7 +63,6 @@ class Validate_By_Domain_Public {
 		'hippycanada.ca',
 		'jibc.ca',
 		'kpu.ca',
-		'langara.bc.ca',
 		'ldabc.ca',
 		'mcsbc.org  ',
 		'metiscommission.com',
@@ -78,7 +72,7 @@ class Validate_By_Domain_Public {
 		'nvit.bc.ca',
 		'nwcc.bc.ca',
 		'okanagan.bc.ca',
-		'phsa.ca ',
+		'phsa.ca',
 		'psychologyfoundation.org',
 		'rootsofempathy.org',
 		'royalroads.ca',
@@ -120,77 +114,21 @@ class Validate_By_Domain_Public {
 		'lcss.ca',
 		'missioncommunityservices.com',
 		'childcareoptions.ca',
-		'pacific-care.bc.ca',
 		'clementscentre.org',
-		'sfrs.ca/ccrr',
+		'sfrs.ca',
 		'childcarevictoria.ca',
-		'nscr.bc.ca',
 		'wstcoast.org',
 		'sscs.ca',
 		'coastccrr.ca',
 		'volunteerrichmond.ca',
 		'vanymca.org',
 		// School Districts
-		'sd5.bc.ca',
-		'sd6.bc.ca',
-		'sd8.bc.ca',
-		'sd10.bc.ca',
-		'sd19.bc.ca',
-		'sd20.bc.ca',
-		'sd22.bc.ca',
-		'sd23.bc.ca',
-		'sd27.bc.ca',
-		'sd28.bc.ca',
-		'sd33.bc.ca',
-		'sd34.bc.ca',
-		'sd35.bc.ca',
 		'surreyschools.ca',
-		'web.deltasd.bc.ca',
-		'sd38.bc.ca',
-		'vsb.bc.ca',
-		'sd40.bc.ca',
-		'sd41.bc.ca',
 		'sd42.ca',
-		'sd43.bc.ca',
 		'sd44.ca',
 		'westvancouverschools.ca',
-		'sd46.bc.ca',
-		'sd47.bc.ca',
 		'sd48seatosky.org',
-		'sd49.bc.ca',
-		'sd50.bc.ca',
-		'sd51.bc.ca',
-		'sd52.bc.ca',
-		'sd53.bc.ca',
-		'sd54.bc.ca',
-		'sd57.bc.ca',
-		'sd58.bc.ca',
-		'sd59.bc.ca',
-		'prn.bc.ca',
-		'sd61.bc.ca',
-		'sd62.bc.ca',
-		'sd63.bc.ca',
-		'sd64.bc.ca',
-		'sd67.bc.ca',
-		'sd68.bc.ca',
-		'sd69.bc.ca',
-		'sd70.bc.ca',
-		'sd71.bc.ca',
-		'sd72.bc.ca',
-		'sd73.bc.ca',
-		'sd74.bc.ca',
 		'mpsd.ca',
-		'sd78.bc.ca',
-		'sd79.bc.ca',
-		'sd81.bc.ca',
-		'cmsd.bc.ca',
-		'sd83.bc.ca',
-		'sd84.bc.ca',
-		'sd85.bc.ca',
-		'sd87.bc.ca',
-		'sd91.bc.ca',
-		'nisgaa.bc.ca',
-		'csf.bc.ca',
 		// Child Development centers
 		'bvcdc.ca',
 		'cdcfsj.ca',
@@ -210,7 +148,6 @@ class Validate_By_Domain_Public {
 		'albernichildrenfirst.ca',
 		'clementscentre.org',
 		'bcfamilyhearing.com',
-		'develop.bc.ca',
 		'fvcdc.org',
 		'rmcdc.com',
 		'sharesociety.ca',
@@ -220,19 +157,15 @@ class Validate_By_Domain_Public {
 		'cbal.org',
 		'deltakids.ca',
 		'abbotsfordcommunityservices.com',
-		'froghollow.bc.ca',
-		'options.bc.ca',
 		'reachchild.org',
-		'gv.ymca.ca',
+		'ymca.ca',
 		'bvcdc.ca',
 		'unitedwaycso.com',
 		'bcacdi.org',
-		'gov.bc.ca',
 		'sccssociety.org',
 		'kelownachildcare.com',
 		'sfrs.ca',
 		'catchcoalition.ca',
-		'pacific-care.bc.ca',
 	);
 
 	/**
@@ -385,7 +318,7 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
-	 * Compares the domain of the users email to a list of BC Institutional domains
+	 * Compares the domain of the users email to a list of BC institution domains
 	 *
 	 * @param string $domain
 	 *
@@ -398,13 +331,9 @@ class Validate_By_Domain_Public {
 		}
 
 		// target subdomain, ex: geog.ubc.ca
-		// target subdomains
-		$parts       = explode( '.', $domain );
-		$tld         = array_pop( $parts );
-		$sld         = array_pop( $parts );
-		$base_domain = $sld . '.' . $tld;
+		$base_domain = $this->getBaseDomain( $domain );
 
-		// return true if the domain is either in the list, or it's not spam, or if it's both not spam and a bc domain
+		// return true if the domain is either in the list
 		if ( in_array( $base_domain, $this->bc_domains ) ) {
 			return true;
 		}
@@ -426,18 +355,29 @@ class Validate_By_Domain_Public {
 		}
 
 		// target subdomain, ex: geog.ubc.ca
-		// target subdomains
-		$parts       = explode( '.', $domain );
-		$tld         = array_pop( $parts );
-		$sld         = array_pop( $parts );
-		$base_domain = $sld . '.' . $tld;
+		$base_domain = $this->getBaseDomain( $domain );
 
-		// return true if the domain is either in the list, or it's not spam, or if it's both not spam and a bc domain
+		// return true if it's both not from a spam domain
 		if ( ! in_array( $base_domain, $this->spam_domains ) ) {
 			return true;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Given a domain, or subdomain, will return the host and top level domain
+	 * @param $domain
+	 *
+	 * @return string
+	 */
+	private function getBaseDomain( $domain ) {
+		$parts       = explode( '.', $domain );
+		$tld         = array_pop( $parts );
+		$host_name   = array_pop( $parts );
+		$base_domain = $host_name . '.' . $tld;
+
+		return $base_domain;
 	}
 
 	/**
