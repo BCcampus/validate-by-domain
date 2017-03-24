@@ -282,7 +282,7 @@ class Validate_By_Domain_Public {
 		if ( 0 === strcmp( 'earlyyearsbc.ca', $host ) ) {
 			$field_val = '155';
 		} else {
-			$field_val = '5';
+			$field_val = '3';
 		}
 
 		$this->field_val = $field_val;
