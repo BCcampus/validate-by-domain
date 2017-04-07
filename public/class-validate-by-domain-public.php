@@ -189,6 +189,8 @@ class Validate_By_Domain_Public {
 		'ultramoonbear.com',
 		'islaby.com',
 		'360ezzz.com',
+		'cvmania.pl',
+		'cheaplondon-escorts.eu',
 	);
 
 	/**
