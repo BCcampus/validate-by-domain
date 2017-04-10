@@ -180,17 +180,22 @@ class Validate_By_Domain_Public {
 		'marvsz.com',
 		'kellergy.com',
 		'pixymix.com',
-		'mail.ru',
 		'marrived.com',
 		'poczxneolinka.info',
 		'namemerfo.com',
-		'wugjeyxwgv.pl',
 		'360ezzz.com',
 		'ultramoonbear.com',
 		'islaby.com',
 		'360ezzz.com',
-		'cvmania.pl',
-		'cheaplondon-escorts.eu',
+	);
+
+	/**
+	 * @var array list of top level domains associated with spam
+	 */
+	private $spam_tld = array(
+		'ru',
+		'pl',
+		'eu',
 	);
 
 	/**
@@ -335,7 +340,7 @@ class Validate_By_Domain_Public {
 		// target subdomain, ex: geog.ubc.ca
 		$base_domain = $this->getBaseDomain( $domain );
 
-		// return true if the domain is either in the list
+		// return true if the domain is in the list
 		if ( in_array( $base_domain, $this->bc_domains ) ) {
 			return true;
 		}
@@ -344,7 +349,7 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
-	 * Compares the domain of the user's email to a blacklist
+	 * Compares the domain of the user's email to a couple of blacklists
 	 *
 	 * @param $domain
 	 *
@@ -356,15 +361,30 @@ class Validate_By_Domain_Public {
 			return false;
 		}
 
-		// target subdomain, ex: geog.ubc.ca
+		// target both top level domains and specific domains
 		$base_domain = $this->getBaseDomain( $domain );
+		$tld_domain  = $this->getTopLevelDomain( $domain );
 
-		// return true if it's both not from a spam domain
-		if ( ! in_array( $base_domain, $this->spam_domains ) ) {
+		// return true if it's not from a spam domain
+		if ( ! in_array( $base_domain, $this->spam_domains ) || ! in_array( $tld_domain, $this->spam_tld ) ) {
 			return true;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Given a domain, will return the top level domain
+	 *
+	 * @param $domain
+	 *
+	 * @return mixed
+	 */
+	private function getTopLevelDomain( $domain ) {
+		$parts = explode( '.', $domain );
+		$tld   = array_pop( $parts );
+
+		return $tld;
 	}
 
 	/**
