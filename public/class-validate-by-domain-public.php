@@ -285,7 +285,7 @@ class Validate_By_Domain_Public {
 		// Filter email addresses for Organizers, check for spam domains on Learners
 		if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
-			$valid     = $this->isBCDomain( $domain );
+			$valid  = $this->isBCDomain( $domain );
 
 			if ( false == $valid ) {
 				$bp->signup->errors['signup_email'] = 'Please use an email address from an allowed agency or institution within British Columbia';
@@ -294,7 +294,7 @@ class Validate_By_Domain_Public {
 
 		if ( 0 === strcmp( $_POST[ $field_val ], 'Learner' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
-			$spam     = $this->isSpamDomain( $domain );
+			$spam   = $this->isSpamDomain( $domain );
 
 			if ( true == $spam ) {
 				$bp->signup->errors['signup_email'] = 'error';
@@ -389,6 +389,7 @@ class Validate_By_Domain_Public {
 
 	/**
 	 * Given a domain, or subdomain, will return the host and top level domain
+	 *
 	 * @param $domain
 	 *
 	 * @return string
