@@ -166,7 +166,6 @@ class Validate_By_Domain_Public {
 		'kelownachildcare.com',
 		'sfrs.ca',
 		'catchcoalition.ca',
-		'obgc.ca', 
 		'noeyc.ca',
 	);
 
