@@ -56,7 +56,7 @@ class Validate_By_Domain_Public {
 		'ecuad.ca',
 		'educacentre.com',
 		'fcssbc.ca',
-		'fnha.ca​',
+		'fnha.ca',
 		'fpcc.ca',
 		'frpbc.ca',
 		'fsibc.com',
@@ -167,6 +167,10 @@ class Validate_By_Domain_Public {
 		'sfrs.ca',
 		'catchcoalition.ca',
 		'noeyc.ca',
+		'FNHA.ca',
+		'vpl.ca',
+		'actcommunity.ca',
+		'womenscontact.org',
 	);
 
 	/**
