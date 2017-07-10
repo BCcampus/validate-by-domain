@@ -56,7 +56,7 @@ class Validate_By_Domain_Public {
 		'ecuad.ca',
 		'educacentre.com',
 		'fcssbc.ca',
-		'fnha.ca​',
+		'fnha.ca',
 		'fpcc.ca',
 		'frpbc.ca',
 		'fsibc.com',
@@ -166,6 +166,11 @@ class Validate_By_Domain_Public {
 		'kelownachildcare.com',
 		'sfrs.ca',
 		'catchcoalition.ca',
+		'noeyc.ca',
+		'FNHA.ca',
+		'vpl.ca',
+		'actcommunity.ca',
+		'womenscontact.org',
 	);
 
 	/**
@@ -285,18 +290,18 @@ class Validate_By_Domain_Public {
 		// Filter email addresses for Organizers, check for spam domains on Learners
 		if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
-			$ok     = $this->checkDomain( $domain );
+			$valid  = $this->isBCDomain( $domain );
 
-			if ( false == $ok ) {
+			if ( false == $valid ) {
 				$bp->signup->errors['signup_email'] = 'Please use an email address from an allowed agency or institution within British Columbia';
 			}
 		}
 
 		if ( 0 === strcmp( $_POST[ $field_val ], 'Learner' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
-			$ok     = $this->checkSpamDomain( $domain );
+			$spam   = $this->isSpamDomain( $domain );
 
-			if ( false == $ok ) {
+			if ( true == $spam ) {
 				$bp->signup->errors['signup_email'] = 'error';
 			}
 		}
@@ -331,7 +336,7 @@ class Validate_By_Domain_Public {
 	 *
 	 * @return boolean
 	 */
-	private function checkDomain( $domain ) {
+	private function isBCDomain( $domain ) {
 
 		if ( empty( $domain ) ) {
 			return false;
@@ -355,7 +360,7 @@ class Validate_By_Domain_Public {
 	 *
 	 * @return bool
 	 */
-	private function checkSpamDomain( $domain ) {
+	private function isSpamDomain( $domain ) {
 
 		if ( empty( $domain ) ) {
 			return false;
@@ -365,8 +370,8 @@ class Validate_By_Domain_Public {
 		$base_domain = $this->getBaseDomain( $domain );
 		$tld_domain  = $this->getTopLevelDomain( $domain );
 
-		// return true if it's not from a spam domain
-		if ( ! in_array( $base_domain, $this->spam_domains ) || ! in_array( $tld_domain, $this->spam_tld ) ) {
+		// return true if it's from a spam domain
+		if ( in_array( $base_domain, $this->spam_domains ) || in_array( $tld_domain, $this->spam_tld ) ) {
 			return true;
 		}
 
@@ -389,6 +394,7 @@ class Validate_By_Domain_Public {
 
 	/**
 	 * Given a domain, or subdomain, will return the host and top level domain
+	 *
 	 * @param $domain
 	 *
 	 * @return string
