@@ -171,6 +171,8 @@ class Validate_By_Domain_Public {
 		'vpl.ca',
 		'actcommunity.ca',
 		'womenscontact.org',
+		'dalailamacenter.org',
+		'heartmindonline.org',
 	);
 
 	/**
