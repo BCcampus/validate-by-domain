@@ -477,7 +477,7 @@ class Validate_By_Domain_Public {
 
 			//check if the signup usermeta value is present
 			if ( isset( $meta['eypd_role'] ) && 0 === strcmp( 'Organizer', $meta['eypd_role'] ) ) {
-				$current->set_role( 'contributor' );
+				$current->set_role( 'editor' );
 			}
 
 		}
