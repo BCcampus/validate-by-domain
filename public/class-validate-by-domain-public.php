@@ -173,6 +173,7 @@ class Validate_By_Domain_Public {
 		'womenscontact.org',
 		'dalailamacenter.org',
 		'heartmindonline.org',
+		'bcapop.ca',
 	);
 
 	/**
