@@ -22,7 +22,11 @@ class Validate_By_Domain_Options {
 	 */
 	function plugin_settings_init() {
 
-		register_setting( 'validate_by_domain', 'validate_by_domain_settings' );
+		$args = array(
+			'sanitize_callback' => [ $this, 'sanitize_input' ],
+		);
+
+		register_setting( 'validate_by_domain', 'validate_by_domain_settings', $args );
 
 		add_settings_section(
 			'options_section',
@@ -57,6 +61,7 @@ class Validate_By_Domain_Options {
 
 	}
 
+// todo: Check for the existence of the key before using it in a condition, in the render functions below (avoid Illegal string offset)
 
 	/**
 	 * Render the options page enable field
@@ -100,6 +105,33 @@ class Validate_By_Domain_Options {
 		<?php
 
 	}
+
+	/**
+	 * @param $input
+	 * Sanitize the whitelist
+	 *
+	 * @return mixed|void
+	 */
+	function sanitize_input( $input ) {
+
+		// Create our array for storing the sanitized options
+		$output = [];
+
+		// Check if the current option has a value. If so, process it.
+		if ( isset( $input['validate_whitelist'] ) ) {
+
+			// Strip all HTML and PHP tags
+			$output['validate_whitelist'] = strip_tags( stripslashes( $input['validate_whitelist'] ) );
+
+			//todo: Make sure there's only one domain per line, and remove all unnecessary characters
+
+		} // end if
+
+		// Return the array processing any additional functions filtered by this action
+		return apply_filters( 'sanitize_input', $output, $input );
+
+	}
+
 
 	/**
 	 * The function to be called to output the content for the settings page
