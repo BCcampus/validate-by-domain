@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: alexparedes
- * Date: 3/2/18
- * Time: 12:02 PM
+ * All of the functionality for the plugins options page in the dashboard
  */
 
 class Validate_By_Domain_Options {
@@ -123,9 +120,16 @@ class Validate_By_Domain_Options {
 			// Strip all HTML and PHP tags
 			$output['validate_whitelist'] = strip_tags( stripslashes( $input['validate_whitelist'] ) );
 
-			//todo: Make sure there's only one domain per line, and remove all unnecessary characters
+			// Split the string by new lines, commas, single space, or multiple whitespace
+			$output['validate_whitelist'] = preg_split( "/(\r\n|\n|\r|,|[\s]|[\s][\s])/", $output['validate_whitelist'] );
 
-		} // end if
+			// Removes empty elements created by blank new lines, trim any whitespace before or after
+			$output['validate_whitelist'] = array_filter( array_map( 'trim', $output['validate_whitelist'] ) );
+
+			// Let's send back string with one item per line
+			$output['validate_whitelist'] = implode( PHP_EOL, $output['validate_whitelist'] );
+
+		}
 
 		// Return the array processing any additional functions filtered by this action
 		return apply_filters( 'sanitize_input', $output, $input );
