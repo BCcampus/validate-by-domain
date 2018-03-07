@@ -34,7 +34,7 @@ class Validate_By_Domain_Options {
 
 		add_settings_field(
 			'validate_enable',
-			__( 'Enable', 'WordPress' ),
+			__( '', 'WordPress' ),
 			[ $this, 'enable_render' ],
 			'validate_by_domain',
 			'options_section'
@@ -42,7 +42,7 @@ class Validate_By_Domain_Options {
 
 		add_settings_field(
 			'validate_role',
-			__( 'Default user role:', 'WordPress' ),
+			__( '', 'WordPress' ),
 			[ $this, 'role_render' ],
 			'validate_by_domain',
 			'options_section'
@@ -66,10 +66,10 @@ class Validate_By_Domain_Options {
 	function enable_render() {
 
 		$options = get_option( 'validate_by_domain_settings' );
-		?><input
+		?><!-- <input
         type='checkbox'
         name='validate_by_domain_settings[validate_enable]' <?php checked( $options['validate_enable'], 1 ); ?>
-        value='1'><?php
+        value='1'>--><?php
 	}
 
 	/**
@@ -79,12 +79,12 @@ class Validate_By_Domain_Options {
 
 		$options = get_option( 'validate_by_domain_settings' );
 		?>
-        <select name='validate_by_domain_settings[validate_role]'>
+        <!-- <select name='validate_by_domain_settings[validate_role]'>
             <option value='1' <?php selected( $options['validate_role'], 1 ); ?>>Contributor</option>
             <option value='2' <?php selected( $options['validate_role'], 2 ); ?>>Editor</option>
             <option value='3' <?php selected( $options['validate_role'], 3 ); ?>>Author</option>
             <option value='4' <?php selected( $options['validate_role'], 4 ); ?>>Subscriber</option>
-        </select>
+        </select> -->
 
 		<?php
 
