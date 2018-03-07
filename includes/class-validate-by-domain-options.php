@@ -123,6 +123,9 @@ function sanitize_input( $input ) {
 		// Split the string by new lines, commas, single space, or multiple whitespace
 		$output['validate_whitelist'] = preg_split( "/(\r\n|\n|\r|,|[\s]|[\s][\s])/", $output['validate_whitelist'] );
 
+		// Make items unique
+		$output['validate_whitelist'] = array_unique( $output['validate_whitelist'] );
+
 		// Removes empty elements created by blank new lines, trim any whitespace before or after
 		$output['validate_whitelist'] = array_filter( array_map( 'trim', $output['validate_whitelist'] ) );
 
