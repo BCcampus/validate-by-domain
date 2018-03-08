@@ -29,152 +29,6 @@ class Validate_By_Domain_Public {
 	 */
 	private $version;
 
-	/**
-	 * @since 1.0.0
-	 *
-	 * @var array - list of email domians for bc instiutions
-	 */
-	private $bc_domains = array(
-		'ahsabc.com',
-		'all-nations.ca',
-		'bc.ca',
-		'bcaafc.com',
-		'bcasw.org',
-		'bccampus.ca',
-		'bccf.ca',
-		'bchealthyliving.ca',
-		'bcit.ca',
-		'caddra.ca',
-		'camosun.ca',
-		'cancer.ca',
-		'caphc.org',
-		'capilanou.ca',
-		'childhoodobesityfoundation.ca',
-		'childrenshearing.ca',
-		'douglascollege.ca',
-		'ecebc.ca',
-		'ecuad.ca',
-		'educacentre.com',
-		'fcssbc.ca',
-		'fnha.ca',
-		'fpcc.ca',
-		'frpbc.ca',
-		'fsibc.com',
-		'hippycanada.ca',
-		'jibc.ca',
-		'kpu.ca',
-		'ldabc.ca',
-		'mcsbc.org  ',
-		'metiscommission.com',
-		'metisfamilyservices.ca',
-		'nic.bc.ca',
-		'northernhealth.ca',
-		'nvit.bc.ca',
-		'nwcc.bc.ca',
-		'okanagan.bc.ca',
-		'phsa.ca',
-		'psychologyfoundation.org',
-		'rootsofempathy.org',
-		'royalroads.ca',
-		'saccabc.org',
-		'selkirk.ca',
-		'sfu.ca',
-		'successby6bc.ca',
-		'svifcca.com',
-		'therapybc.ca',
-		'tru.ca',
-		'ubc.ca',
-		'ufv.ca',
-		'unbc.ca',
-		'uvic.ca',
-		'vcc.ca',
-		'viha.ca ',
-		'viu.ca',
-		'yukoncollege.yk.ca',
-		// CCRR - Child Care Resource Referral
-		'abbotsfordccrr.ca',
-		'islandswellnesssociety.com',
-		'bvcdc.ca',
-		'ccrr.ccscranbrook.ca',
-		'cariboofamily.org',
-		'kamloopsy.org',
-		'kelownachildcare.com',
-		'nona-cdc.com',
-		'boysandgirlsclubs.ca',
-		'goldencommunityresources.ca',
-		'cariboofamily.org',
-		'pdcrs.com',
-		'shuswapchildrens.ca',
-		'trailfair.ca',
-		'kootenaykids.ca',
-		'nbcy.org',
-		'quesnelbc.com ',
-		'spcrs.ca',
-		'readrightsociety.com',
-		'lcss.ca',
-		'missioncommunityservices.com',
-		'childcareoptions.ca',
-		'clementscentre.org',
-		'sfrs.ca',
-		'childcarevictoria.ca',
-		'wstcoast.org',
-		'sscs.ca',
-		'coastccrr.ca',
-		'volunteerrichmond.ca',
-		'vanymca.org',
-		// School Districts
-		'surreyschools.ca',
-		'sd42.ca',
-		'sd44.ca',
-		'westvancouverschools.ca',
-		'sd48seatosky.org',
-		'mpsd.ca',
-		// Child Development centers
-		'bvcdc.ca',
-		'cdcfsj.ca',
-		'kitimatcdc.ca',
-		'cdcpg.org',
-		'quesnelcdc.com',
-		'spcdc.ca',
-		'terracechilddevelopmentcentre.com',
-		'cdcyukon.ca',
-		'cccdca.org',
-		'starbrightokanagan.ca',
-		'osns.org',
-		'kamloopschildrenstherapy.com',
-		'ccscranbrook.ca',
-		'shuswapchildrens.ca',
-		'cvcda.ca',
-		'albernichildrenfirst.ca',
-		'clementscentre.org',
-		'bcfamilyhearing.com',
-		'fvcdc.org',
-		'rmcdc.com',
-		'sharesociety.ca',
-		'sccss.ca',
-		'bc-cfa.org',
-		// Uncategorized
-		'cbal.org',
-		'deltakids.ca',
-		'abbotsfordcommunityservices.com',
-		'reachchild.org',
-		'ymca.ca',
-		'bvcdc.ca',
-		'unitedwaycso.com',
-		'bcacdi.org',
-		'sccssociety.org',
-		'kelownachildcare.com',
-		'sfrs.ca',
-		'catchcoalition.ca',
-		'noeyc.ca',
-		'FNHA.ca',
-		'vpl.ca',
-		'actcommunity.ca',
-		'womenscontact.org',
-		'dalailamacenter.org',
-		'heartmindonline.org',
-		'bcapop.ca',
-	);
 
 	/**
 	 * @var value of the learner/organizer field
@@ -223,6 +77,7 @@ class Validate_By_Domain_Public {
 
 	/**
 	 * set different field values depending on prod or dev env
+	 * todo: bring this into plugin options page, or make it more user friendly somehow
 	 */
 	public function setFieldNum() {
 		$host = parse_url( network_site_url(), PHP_URL_HOST );
@@ -333,6 +188,20 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
+	 * Get the whitelisted domains
+	 */
+
+	public function parseWhiteList() {
+		$options = get_option( 'validate_by_domain_settings' );
+
+		// Make array of domains using end of line as delimiter, strip whitespace and carriage returns etc
+		$whitelist = array_map( 'trim', explode( PHP_EOL, $options['validate_whitelist'] ) );
+
+		return $whitelist;
+	}
+
+
+	/**
 	 * Compares the domain of the users email to a list of BC institution domains
 	 *
 	 * @param string $domain
@@ -349,7 +218,7 @@ class Validate_By_Domain_Public {
 		$base_domain = $this->getBaseDomain( $domain );
 
 		// return true if the domain is in the list
-		if ( in_array( $base_domain, $this->bc_domains ) ) {
+		if ( in_array( $base_domain, $this->parseWhiteList() ) ) {
 			return true;
 		}
 

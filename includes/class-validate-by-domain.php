@@ -18,7 +18,7 @@ class Validate_By_Domain {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      BC_Validate_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      BC_Validate_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -27,7 +27,7 @@ class Validate_By_Domain {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $bc_validate    The string used to uniquely identify this plugin.
+	 * @var      string $bc_validate The string used to uniquely identify this plugin.
 	 */
 	protected $bc_validate;
 
@@ -36,7 +36,7 @@ class Validate_By_Domain {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var      string $version The current version of the plugin.
 	 */
 	protected $version;
 
@@ -52,11 +52,11 @@ class Validate_By_Domain {
 	public function __construct() {
 
 		$this->bc_validate = 'validate-by-domain';
-		$this->version = '1.0.0';
+		$this->version     = '1.0.0';
 
 		$this->load_dependencies();
 		$this->set_locale();
-//		$this->define_admin_hooks();
+		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
 	}
@@ -83,6 +83,11 @@ class Validate_By_Domain {
 		 * core plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-validate-by-domain-loader.php';
+
+		/**
+		 * The class responsible for the options page of the plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-validate-by-domain-options.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
@@ -124,18 +129,17 @@ class Validate_By_Domain {
 	}
 
 	/**
-	 * Register all of the hooks related to the dashboard functionality
-	 * of the plugin.
+	 * Register all of the hooks related to the options page.
 	 *
 	 * @since    1.0.0
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
 
-//		$plugin_admin = new BC_Validate_Admin( $this->get_bc_validate(), $this->get_version() );
-//
-//		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-//		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$plugin_options = new Validate_By_Domain_Options();
+
+		$this->loader->add_action( 'admin_menu', $plugin_options, 'plugin_admin_add_page' );
+		$this->loader->add_action( 'admin_init', $plugin_options, 'plugin_settings_init' );
 
 	}
 
@@ -149,7 +153,7 @@ class Validate_By_Domain {
 	private function define_public_hooks() {
 
 		$plugin_public = new Validate_By_Domain_Public( $this->get_bc_validate(), $this->get_version() );
-		$honey_pot = new HoneyPot();
+		$honey_pot     = new HoneyPot();
 
 		$this->loader->add_filter( 'bp_signup_validate', $plugin_public, 'signupUserBC' );
 //		$this->loader->add_action( 'bp_signup_profile_fields', $plugin_public, 'signupExtraBC' );
