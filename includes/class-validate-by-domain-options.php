@@ -112,7 +112,7 @@ function whitelist_render() {
 function sanitize_input( $input ) {
 
 	// Create our array for storing the sanitized options
-	$output = [];
+	$output = $domains = [];
 
 	// Check if the current option has a value. If so, process it.
 	if ( isset( $input['validate_whitelist'] ) ) {
@@ -126,8 +126,17 @@ function sanitize_input( $input ) {
 		// Make items unique
 		$output['validate_whitelist'] = array_unique( $output['validate_whitelist'] );
 
+		// make sure they have a valid domain pattern
+		// @see https://stackoverflow.com/questions/3026957/how-to-validate-a-domain-name-using-regex-php#16491074
+		foreach ( $output['validate_whitelist'] as $k => $domain ) {
+			$ok = filter_var( $domain, FILTER_VALIDATE_REGEXP, [ 'options' => [ 'regexp' => '/^(?!\-)(?:[a-zA-Z\d\-]{0,62}[a-zA-Z\d]\.){1,126}(?!\d+)[a-zA-Z\d]{1,63}$/' ] ] );
+			if ( $ok ) {
+				$domains[] = $ok;
+			}
+		}
+
 		// Removes empty elements created by blank new lines, trim any whitespace before or after
-		$output['validate_whitelist'] = array_filter( array_map( 'trim', $output['validate_whitelist'] ) );
+		$output['validate_whitelist'] = array_filter( array_map( 'trim', $domains ) );
 
 		// Let's send back string with one item per line
 		$output['validate_whitelist'] = implode( PHP_EOL, $output['validate_whitelist'] );
