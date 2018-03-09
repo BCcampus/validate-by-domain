@@ -65,11 +65,11 @@ class Validate_By_Domain_Options {
 	 */
 	function enable_render() {
 
-		$options = get_option( 'validate_by_domain_settings' );
-		?><input
-        type='checkbox'
-        name='validate_by_domain_settings[validate_enable]' <?php checked( $options['validate_enable'], 1 ); ?>
-        value='1'><?php
+		$options      = get_option( 'validate_by_domain_settings' );
+		$enable_value = checked( $options['validate_enable'], 1, false );
+		$html         = "<input type='checkbox' name='validate_by_domain_settings[validate_enable]' {$enable_value} value='1' >";
+
+		echo $html;
 	}
 
 	/**
