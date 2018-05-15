@@ -281,33 +281,6 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
-	 * Adds a dropdown list of BC Institutions to the signup form
-	 *
-	 * @param type $errors
-	 */
-	public function signupExtraBC( $errors ) {
-		// Select list for BC Institutions
-		$html = '<div class="radio">
-					<span class="label">Position/Role (required)</span>';
-		if ( is_object( $errors ) ) {
-
-			$html .= '<p class="error">' . $errors->get_error_message( 'eypd_role' ) . '</p>';
-		}
-
-		$html .= '<div id="eypd_role" class="input-options radio-button-options">
-					<label for="organizer" class="option-label">
-					<input  type="radio" name="eypd_role" id="organizer" value="Organizer">Organizer</label>
-					<label for="learner" class="option-label">
-					<input  type="radio" name="eypd_role" id="learner" value="Learner">Learner</label>
-					</div>';
-		$html .= '<p class="description">Learner — you are primarily looking for training events. Organizer — you are primarily posting training events on this site.</p>';
-		$html .= '</div>';
-		$html .= '</div>';
-
-		echo $html;
-	}
-
-	/**
 	 * At the moment of signup, store a post value in wp_signups table
 	 *
 	 * @param array $usermeta
