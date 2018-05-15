@@ -345,9 +345,12 @@ class Validate_By_Domain_Public {
 
 			$meta = maybe_unserialize( $meta->meta );
 
+			// Get the plugin options for the user role
+			$options = get_option( 'validate_by_domain_settings' );
+
 			//check if the signup usermeta value is present
 			if ( isset( $meta['eypd_role'] ) && 0 === strcmp( 'Organizer', $meta['eypd_role'] ) ) {
-				$current->set_role( 'editor' );
+				$current->set_role( $options['validate_role'] );
 			}
 
 		}
