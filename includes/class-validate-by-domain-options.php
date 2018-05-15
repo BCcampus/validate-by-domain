@@ -65,7 +65,7 @@ class Validate_By_Domain_Options {
 		);
 
 	}
-	
+
 	/**
 	 * Render the options page enable field
 	 */
