@@ -7,9 +7,13 @@ class Validate_By_Domain_Options {
 
 	public function plugin_admin_add_page() {
 
-		add_options_page( 'Validate by Domain', 'Validate by Domain', 'manage_options', 'validate_by_domain', [
+		add_options_page(
+			'Validate by Domain',
+			'Validate by Domain',
+			'manage_options',
+			'validate_by_domain', [
 			$this,
-			'plugin_options_page'
+			'plugin_options_page',
 		] );
 
 	}
@@ -19,11 +23,15 @@ class Validate_By_Domain_Options {
 	 */
 	function plugin_settings_init() {
 
-		$args = array(
+		$args = [
 			'sanitize_callback' => [ $this, 'sanitize_input' ],
-		);
+		];
 
-		register_setting( 'validate_by_domain', 'validate_by_domain_settings', $args );
+		register_setting(
+			'validate_by_domain',
+			'validate_by_domain_settings',
+			$args
+		);
 
 		add_settings_section(
 			'options_section',
@@ -57,19 +65,20 @@ class Validate_By_Domain_Options {
 		);
 
 	}
-
-// todo: Check for the existence of the key before using it in a condition, in the render functions below (avoid Illegal string offset)
-
+	
 	/**
 	 * Render the options page enable field
 	 */
 	function enable_render() {
 
 		$options = get_option( 'validate_by_domain_settings' );
-		?><input
-        type='checkbox'
-        name='validate_by_domain_settings[validate_enable]' <?php checked( $options['validate_enable'], 1 ); ?>
-        value='1'><?php
+
+		// add default
+		if ( ! isset( $options['validate_enable'] ) ) {
+			$options['validate_enable'] = 0;
+		}
+
+		echo "<input type='checkbox' name='validate_by_domain_settings[validate_enable]'" . checked( $options['validate_enable'], 1, FALSE ) . " value='1'>";
 	}
 
 	/**
@@ -78,7 +87,8 @@ class Validate_By_Domain_Options {
 	function role_render() {
 		$options = get_option( 'validate_by_domain_settings' );
 		( $options['validate_role'] ) ? $role = $options['validate_role'] : $role = 'Subscriber';
-		?> <select name='validate_by_domain_settings[validate_role]>'
+		?>
+        <select name='validate_by_domain_settings[validate_role]>'
 		<?php
 		wp_dropdown_roles( $role );
 		?></select> <?php
@@ -90,10 +100,12 @@ class Validate_By_Domain_Options {
 	function whitelist_render() {
 
 		$options = get_option( 'validate_by_domain_settings' );
-		?>
-        <textarea cols='60' rows='15'
-                  name='validate_by_domain_settings[validate_whitelist]'><?php echo $options['validate_whitelist']; ?></textarea>
-		<?php
+		// add default
+		if ( ! isset( $options['validate_whitelist'] ) ) {
+			$options['validate_whitelist'] = '';
+		}
+
+		echo "<textarea cols='60' rows='15' name='validate_by_domain_settings[validate_whitelist]'>" . $options['validate_whitelist'] . "</textarea>";
 
 	}
 
@@ -109,8 +121,10 @@ class Validate_By_Domain_Options {
 		$output = $domains = [];
 
 		// add all of our options to the output
-		foreach ( $input as $key => $value ) {
-			$output[ $key ] = $value;
+		if ( is_array( $input ) ) {
+			foreach ( $input as $key => $value ) {
+				$output[ $key ] = $value;
+			}
 		}
 
 		// Check if the current option has a value. If so, process it.
