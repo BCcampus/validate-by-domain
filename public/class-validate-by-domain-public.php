@@ -38,7 +38,7 @@ class Validate_By_Domain_Public {
 	/**
 	 * @var array list of problem domains
 	 */
-	private $spam_domains = array(
+	private $spam_domains = [
 		'marvsz.com',
 		'kellergy.com',
 		'pixymix.com',
@@ -49,16 +49,16 @@ class Validate_By_Domain_Public {
 		'ultramoonbear.com',
 		'islaby.com',
 		'360ezzz.com',
-	);
+	];
 
 	/**
 	 * @var array list of top level domains associated with spam
 	 */
-	private $spam_tld = array(
+	private $spam_tld = [
 		'ru',
 		'pl',
 		'eu',
-	);
+	];
 
 	/**
 	 * Initialize the class and set its properties.
@@ -76,19 +76,12 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
-	 * set different field values depending on prod or dev env
-	 * todo: bring this into plugin options page, or make it more user friendly somehow
+	 * set the value according to user prefs
 	 */
 	public function setFieldNum() {
-		$host = parse_url( network_site_url(), PHP_URL_HOST );
 
-		if ( 0 === strcmp( 'earlyyearsbc.ca', $host ) ) {
-			$field_val = '155';
-		} else {
-			$field_val = '3';
-		}
-
-		$this->field_val = $field_val;
+		$options         = get_option( 'validate_by_domain_settings' );
+		$this->field_val = $options['field_num'];
 
 	}
 
@@ -110,7 +103,7 @@ class Validate_By_Domain_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-//		wp_enqueue_style( $this->bc_validate, plugin_dir_url( __FILE__ ) . 'css/bc-validate-public.css', array(), $this->version, 'all' );
+		//		wp_enqueue_style( $this->bc_validate, plugin_dir_url( __FILE__ ) . 'css/bc-validate-public.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -131,7 +124,7 @@ class Validate_By_Domain_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-//		wp_enqueue_script( $this->bc_validate, plugin_dir_url( __FILE__ ) . 'js/plugin-name-public.js', array( 'jquery' ), $this->version, false );
+		//		wp_enqueue_script( $this->bc_validate, plugin_dir_url( __FILE__ ) . 'js/plugin-name-public.js', array( 'jquery' ), $this->version, false );
 	}
 
 	/**
@@ -140,21 +133,29 @@ class Validate_By_Domain_Public {
 	 */
 	public function signupUserBC() {
 		global $bp;
-		$field_val = 'field_' . $this->field_val;
 		if ( isset( $_POST ) && ( 'request-details' != $bp->signup->step ) ) {
 			return;
 		}
+		$field_val = 'field_' . $this->field_val;
+		$options   = get_option( 'validate_by_domain_settings' );
 
-		// Filter email addresses for Organizers, check for spam domains on Learners
-		if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
-			$domain = $this->parseEmail( $_POST['signup_email'] );
-			$valid  = $this->isBCDomain( $domain );
+		// condition is that the user has enabled this feature
+		if ( 1 === $options['validate_enable'] ) {
 
-			if ( false == $valid ) {
-				$bp->signup->errors['signup_email'] = 'Please use an email address from an allowed agency or institution within British Columbia';
+			$role = $options['validate_role'];
+
+			// Filter email addresses for Organizers, check for spam domains on Learners
+			if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
+				$domain = $this->parseEmail( $_POST['signup_email'] );
+				$valid  = $this->isWhiteListedDomain( $domain );
+
+				if ( false == $valid ) {
+					$bp->signup->errors['signup_email'] = 'Please use an email address from an authorized domain.';
+				}
 			}
 		}
 
+		// opinionated default blacklist
 		if ( 0 === strcmp( $_POST[ $field_val ], 'Learner' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$spam   = $this->isSpamDomain( $domain );
@@ -202,13 +203,14 @@ class Validate_By_Domain_Public {
 
 
 	/**
-	 * Compares the domain of the users email to a list of BC institution domains
+	 * Compares the domain of the users email to a list of BC institution
+	 * domains
 	 *
 	 * @param string $domain
 	 *
 	 * @return boolean
 	 */
-	private function isBCDomain( $domain ) {
+	private function isWhiteListedDomain( $domain ) {
 
 		if ( empty( $domain ) ) {
 			return false;
@@ -298,7 +300,8 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
-	 * At the moment after signup, during activation, update capabilities to contributor
+	 * At the moment after signup, during activation, update capabilities to
+	 * contributor
 	 *
 	 * @param $user_id
 	 *
