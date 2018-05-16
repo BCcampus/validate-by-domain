@@ -27,19 +27,19 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-plugin-name-activator.php
+ * This action is documented in inc/class-plugin-name-activator.php
  */
 function activate_bc_validate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-validate-by-domain-activator.php';
+	require_once plugin_dir_path( __FILE__ ) . 'inc/class-validate-by-domain-activator.php';
 	Validate_By_Domain_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-plugin-name-deactivator.php
+ * This action is documented in inc/class-plugin-name-deactivator.php
  */
 function deactivate_bc_validate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-validate-by-domain-deactivator.php';
+	require_once plugin_dir_path( __FILE__ ) . 'inc/class-validate-by-domain-deactivator.php';
 	Validate_By_Domain_Deactivator::deactivate();
 }
 
@@ -50,7 +50,7 @@ register_deactivation_hook( __FILE__, 'deactivate_bc_validate' );
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-validate-by-domain.php';
+require plugin_dir_path( __FILE__ ) . 'inc/class-validate-by-domain.php';
 
 /**
  * Begins execution of the plugin.

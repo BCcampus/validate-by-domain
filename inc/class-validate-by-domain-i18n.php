@@ -7,7 +7,7 @@
  * @since      1.0.0
  *
  * @package    Validate_By_Domain
- * @subpackage Validate_By_Domain/includes
+ * @subpackage Validate_By_Domain/inc
  */
 
 class Validate_By_Domain_i18n {

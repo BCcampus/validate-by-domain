@@ -7,7 +7,7 @@
  * @since      1.0.0
  *
  * @package    Validate_By_Domain
- * @subpackage Validate_By_Domain/includes
+ * @subpackage Validate_By_Domain/inc
  */
 
 class Validate_By_Domain {
@@ -82,18 +82,18 @@ class Validate_By_Domain {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-validate-by-domain-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-validate-by-domain-loader.php';
 
 		/**
 		 * The class responsible for the options page of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-validate-by-domain-options.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-validate-by-domain-options.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-validate-by-domain-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-validate-by-domain-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
