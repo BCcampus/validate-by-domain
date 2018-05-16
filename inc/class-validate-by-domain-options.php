@@ -12,9 +12,10 @@ class Validate_By_Domain_Options {
 			'Validate by Domain',
 			'manage_options',
 			'validate_by_domain', [
-			$this,
-			'plugin_options_page',
-		] );
+				$this,
+				'plugin_options_page',
+			]
+		);
 
 	}
 
@@ -99,20 +100,22 @@ class Validate_By_Domain_Options {
 			$options['validate_enable'] = 0;
 		}
 
-		echo "<input type='checkbox' name='validate_by_domain_settings[validate_enable]'" . checked( $options['validate_enable'], 1, FALSE ) . " value='1'>";
+		echo "<input type='checkbox' name='validate_by_domain_settings[validate_enable]'" . checked( $options['validate_enable'], 1, false ) . " value='1'>";
 	}
 
 	/**
 	 * Render the options page role selection field
 	 */
 	function role_render() {
-		$options = get_option( 'validate_by_domain_settings' );
+		$options                              = get_option( 'validate_by_domain_settings' );
 		( $options['validate_role'] ) ? $role = $options['validate_role'] : $role = 'Subscriber';
 		?>
-        <select name='validate_by_domain_settings[validate_role]>'
+		<select name='validate_by_domain_settings[validate_role]>'
 		<?php
 		wp_dropdown_roles( $role );
-		?></select> <?php
+		?>
+		</select> 
+		<?php
 	}
 
 	/**
@@ -126,7 +129,7 @@ class Validate_By_Domain_Options {
 			$options['validate_whitelist'] = '';
 		}
 
-		echo "<textarea cols='60' rows='15' name='validate_by_domain_settings[validate_whitelist]'>" . $options['validate_whitelist'] . "</textarea>";
+		echo "<textarea cols='60' rows='15' name='validate_by_domain_settings[validate_whitelist]'>" . $options['validate_whitelist'] . '</textarea>';
 
 	}
 
@@ -183,7 +186,7 @@ class Validate_By_Domain_Options {
 	 */
 	function plugin_options_page() {
 		?>
-        <form id='vbd_settings' action='options.php' method='post'>
+		<form id='vbd_settings' action='options.php' method='post'>
 
 			<?php
 			settings_fields( 'validate_by_domain' );
@@ -191,7 +194,7 @@ class Validate_By_Domain_Options {
 			submit_button();
 			?>
 
-        </form>
+		</form>
 		<?php
 	}
 

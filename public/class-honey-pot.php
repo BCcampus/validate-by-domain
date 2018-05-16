@@ -21,8 +21,8 @@ class HoneyPot {
 	 * change these via filters if you
 	 * start getting spam registrations
 	 */
-	CONST VBD_HONEYPOT_NAME = 'RoodElbowBallsTamerFistHem';
-	CONST VBD_HONEYPOT_ID = 'PilotFamousVenialNewSpiceNoisy';
+	const VBD_HONEYPOT_NAME = 'RoodElbowBallsTamerFistHem';
+	const VBD_HONEYPOT_ID   = 'PilotFamousVenialNewSpiceNoisy';
 
 	function __construct() {
 
@@ -54,11 +54,11 @@ class HoneyPot {
 	 *
 	 * @return array
 	 */
-	function checkHoneyPot( $result = array() ) {
+	function checkHoneyPot( $result = [] ) {
 		global $bp;
 		$vpd_honeypot_name = apply_filters( 'vbd_honeypot_name', self::VBD_HONEYPOT_NAME );
 		if ( isset( $_POST[ $vpd_honeypot_name ] ) && ! empty( $_POST[ $vpd_honeypot_name ] ) ) {
-			$result['errors']->add( 'vbd_honeypot', apply_filters( 'vpd_honeypot_fail_message', __( "unhelpful error message." ) ) );
+			$result['errors']->add( 'vbd_honeypot', apply_filters( 'vpd_honeypot_fail_message', __( 'unhelpful error message.' ) ) );
 		}
 
 		return $result;

@@ -23,6 +23,6 @@ class Validate_By_Domain_Deactivator {
 			return;
 		}
 
-		delete_site_option( 'validate-by-domain-activated' );	}
+		delete_site_option( 'validate-by-domain-activated' );   }
 
 }

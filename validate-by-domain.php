@@ -12,8 +12,8 @@
  *
  * @wordpress-plugin
  * Plugin Name:       BC Instititutions Domain Validator
- * Description:       Created for the Early years project. Provides a mechanism to validate whether a user's email address is part of the BC Post-Secondary System
- * Version:           1.0.0
+ * Description:       During self-registration, provides a mechanism to validate whether an email address is part of a whitelist of domains
+ * Version:           1.2.0
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       validate-by-domain

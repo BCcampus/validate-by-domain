@@ -141,9 +141,7 @@ class Validate_By_Domain_Public {
 
 		// condition is that the user has enabled this feature
 		if ( 1 === $options['validate_enable'] ) {
-
-			$role = $options['validate_role'];
-
+			
 			// Filter email addresses for Organizers, check for spam domains on Learners
 			if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
 				$domain = $this->parseEmail( $_POST['signup_email'] );
@@ -328,7 +326,6 @@ class Validate_By_Domain_Public {
 			if ( isset( $meta['vbd_role'] ) && 0 === strcmp( 'Organizer', $meta['vbd_role'] ) ) {
 				$current->set_role( $options['validate_role'] );
 			}
-
 		}
 
 		return $user_id;
