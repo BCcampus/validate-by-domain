@@ -293,7 +293,7 @@ class Validate_By_Domain_Public {
 		$field_val = 'field_' . $this->field_val;
 
 		if ( isset( $_POST[ $field_val ] ) ) {
-			$usermeta['eypd_role'] = $_POST[ $field_val ];
+			$usermeta['vbd_role'] = $_POST[ $field_val ];
 		}
 
 		return $usermeta;
@@ -325,7 +325,7 @@ class Validate_By_Domain_Public {
 			$options = get_option( 'validate_by_domain_settings' );
 
 			//check if the signup usermeta value is present
-			if ( isset( $meta['eypd_role'] ) && 0 === strcmp( 'Organizer', $meta['eypd_role'] ) ) {
+			if ( isset( $meta['vbd_role'] ) && 0 === strcmp( 'Organizer', $meta['vbd_role'] ) ) {
 				$current->set_role( $options['validate_role'] );
 			}
 
