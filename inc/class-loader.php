@@ -9,7 +9,9 @@
  * @subpackage Validate_By_Domain/inc
  */
 
-class Validate_By_Domain_Loader {
+namespace ValidateByDomain;
+
+class Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

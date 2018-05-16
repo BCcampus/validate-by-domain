@@ -2,8 +2,9 @@
 /**
  * All of the functionality for the plugins options page in the dashboard
  */
+namespace ValidateByDomain;
 
-class Validate_By_Domain_Options {
+class Options {
 
 	public function plugin_admin_add_page() {
 

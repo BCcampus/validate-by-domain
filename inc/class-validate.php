@@ -9,7 +9,9 @@
  * @package    Validate_By_Domain
  * @subpackage Validate_By_Domain/public
  */
-class Validate_By_Domain_Public {
+namespace ValidateByDomain;
+
+class Validate {
 
 	/**
 	 * The ID of this plugin.

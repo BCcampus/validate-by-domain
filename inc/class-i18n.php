@@ -9,8 +9,9 @@
  * @package    Validate_By_Domain
  * @subpackage Validate_By_Domain/inc
  */
+namespace ValidateByDomain;
 
-class Validate_By_Domain_i18n {
+class I18n {
 
 	/**
 	 * The domain specified for this plugin.

@@ -9,8 +9,9 @@
  * @package    Validate_By_Domain
  * @subpackage Validate_By_Domain/inc
  */
+namespace ValidateByDomain;
 
-class Validate_By_Domain {
+class Vbd {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -82,31 +83,31 @@ class Validate_By_Domain {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-validate-by-domain-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-loader.php';
 
 		/**
 		 * The class responsible for the options page of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-validate-by-domain-options.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-options.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-validate-by-domain-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-validate-by-domain-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-validate.php';
 
 		/**
 		 * Class responsible for a honey pot, to thwart spam accounts from being created
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-honey-pot.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/class-honeypot.php';
 
-		$this->loader = new Validate_By_Domain_Loader();
+		$this->loader = new Loader();
 
 	}
 
@@ -121,7 +122,7 @@ class Validate_By_Domain {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Validate_By_Domain_i18n();
+		$plugin_i18n = new I18n();
 		$plugin_i18n->set_domain( $this->get_bc_validate() );
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
@@ -136,7 +137,7 @@ class Validate_By_Domain {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_options = new Validate_By_Domain_Options();
+		$plugin_options = new Options();
 
 		$this->loader->add_action( 'admin_menu', $plugin_options, 'plugin_admin_add_page' );
 		$this->loader->add_action( 'admin_init', $plugin_options, 'plugin_settings_init' );
@@ -152,7 +153,7 @@ class Validate_By_Domain {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Validate_By_Domain_Public( $this->get_bc_validate(), $this->get_version() );
+		$plugin_public = new Validate( $this->get_bc_validate(), $this->get_version() );
 		$honey_pot     = new HoneyPot();
 
 		$this->loader->add_filter( 'bp_signup_validate', $plugin_public, 'signupUserBC' );

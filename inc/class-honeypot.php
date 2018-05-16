@@ -15,6 +15,8 @@
  * @copyright Pixel Jar
  * https://github.com/pixeljar/BuddyPress-Honeypot/
  */
+namespace ValidateByDomain;
+
 class HoneyPot {
 	/**
 	 * default values for the honeypot
