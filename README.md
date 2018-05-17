@@ -1,6 +1,7 @@
 Validate by Domain
 ==========
 
-A WordPress plugin initially developed for The Early Years Project in order to verify that users of the system are, indeed, part of the education system, or from a recognized institution
+During self-registration, provides a mechanism to validate whether an email address is part of a whitelist of domains.
+
+Integrates with BuddyPress Profile Fields. At this point, safe to say, 'integrates' = 'depends on' but this will not always be the case.
  
-Forked from the plugin bc-validate 

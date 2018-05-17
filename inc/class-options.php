@@ -86,7 +86,7 @@ class Options {
 			$options['field_num'] = 0;
 		}
 
-		echo "<input type='text' name='validate_by_domain_settings[field_num]' value='{$options['field_num']}'>";
+		echo "<input type='text' name='validate_by_domain_settings[field_num]' value='{$options['field_num']}'></br><small class='form-text text-muted'>Integrates with buddypress - set the field ID of the form element on a sign up form.</small>";
 	}
 
 	/**
@@ -115,7 +115,7 @@ class Options {
 		<?php
 		wp_dropdown_roles( $role );
 		?>
-		</select> 
+		</select> </br><small class='form-text text-muted'>The WP role that new users will be put into if their email domain matches one of the whitelisted domains.</small>
 		<?php
 	}
 
@@ -130,7 +130,7 @@ class Options {
 			$options['validate_whitelist'] = '';
 		}
 
-		echo "<textarea cols='60' rows='15' name='validate_by_domain_settings[validate_whitelist]'>" . $options['validate_whitelist'] . '</textarea>';
+		echo "<textarea cols='60' rows='15' name='validate_by_domain_settings[validate_whitelist]'>" . $options['validate_whitelist'] . '</textarea></br><small class="form-text text-muted">A list of email domains that will be permitted during self-registration.</small>';
 
 	}
 
