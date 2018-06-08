@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function activate_bc_validate() {
 	require_once plugin_dir_path( __FILE__ ) . 'inc/class-activator.php';
-	Activator::activate();
+	ValidateByDomain\Activator::activate();
 }
 
 /**
@@ -40,7 +40,7 @@ function activate_bc_validate() {
  */
 function deactivate_bc_validate() {
 	require_once plugin_dir_path( __FILE__ ) . 'inc/class-deactivator.php';
-	Validate_By_Domain_Deactivator::deactivate();
+	ValidateByDomain\Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_bc_validate' );
