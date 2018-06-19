@@ -51,6 +51,7 @@ class Validate_By_Domain_Public {
 		'capilanou.ca',
 		'childhoodobesityfoundation.ca',
 		'childrenshearing.ca',
+		'coastmountaincollege.ca',
 		'douglascollege.ca',
 		'ecebc.ca',
 		'ecuad.ca',
