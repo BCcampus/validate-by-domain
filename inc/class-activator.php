@@ -1,15 +1,16 @@
 <?php
 
 /**
- * Fired during plugin deactivation
+ * All the code that fires during activation
  *
  * @since      1.0.0
  *
  * @package    Validate_By_Domain
- * @subpackage Validate_By_Domain/includes
+ * @subpackage Validate_By_Domain/inc
  */
+namespace ValidateByDomain;
 
-class Validate_By_Domain_Deactivator {
+class Activator {
 
 	/**
 	 * Short Description. (use period)
@@ -18,11 +19,12 @@ class Validate_By_Domain_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
+	public static function activate() {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
 
-		delete_site_option( 'validate-by-domain-activated' );	}
+		add_site_option( 'validate-by-domain-activated', true );
+	}
 
 }

@@ -9,7 +9,9 @@
  * @package    Validate_By_Domain
  * @subpackage Validate_By_Domain/public
  */
-class Validate_By_Domain_Public {
+namespace ValidateByDomain;
+
+class Validate {
 
 	/**
 	 * The ID of this plugin.
@@ -29,152 +31,6 @@ class Validate_By_Domain_Public {
 	 */
 	private $version;
 
-	/**
-	 * @since 1.0.0
-	 *
-	 * @var array - list of email domians for bc instiutions
-	 */
-	private $bc_domains = array(
-		'ahsabc.com',
-		'all-nations.ca',
-		'bc.ca',
-		'bcaafc.com',
-		'bcasw.org',
-		'bccampus.ca',
-		'bccf.ca',
-		'bchealthyliving.ca',
-		'bcit.ca',
-		'caddra.ca',
-		'camosun.ca',
-		'cancer.ca',
-		'caphc.org',
-		'capilanou.ca',
-		'childhoodobesityfoundation.ca',
-		'childrenshearing.ca',
-		'coastmountaincollege.ca',
-		'douglascollege.ca',
-		'ecebc.ca',
-		'ecuad.ca',
-		'educacentre.com',
-		'fcssbc.ca',
-		'fnha.ca',
-		'fpcc.ca',
-		'frpbc.ca',
-		'fsibc.com',
-		'hippycanada.ca',
-		'jibc.ca',
-		'kpu.ca',
-		'ldabc.ca',
-		'mcsbc.org  ',
-		'metiscommission.com',
-		'metisfamilyservices.ca',
-		'nic.bc.ca',
-		'northernhealth.ca',
-		'nvit.bc.ca',
-		'nwcc.bc.ca',
-		'okanagan.bc.ca',
-		'phsa.ca',
-		'psychologyfoundation.org',
-		'rootsofempathy.org',
-		'royalroads.ca',
-		'saccabc.org',
-		'selkirk.ca',
-		'sfu.ca',
-		'successby6bc.ca',
-		'svifcca.com',
-		'therapybc.ca',
-		'tru.ca',
-		'ubc.ca',
-		'ufv.ca',
-		'unbc.ca',
-		'uvic.ca',
-		'vcc.ca',
-		'viha.ca ',
-		'viu.ca',
-		'yukoncollege.yk.ca',
-		// CCRR - Child Care Resource Referral
-		'abbotsfordccrr.ca',
-		'islandswellnesssociety.com',
-		'bvcdc.ca',
-		'ccrr.ccscranbrook.ca',
-		'cariboofamily.org',
-		'kamloopsy.org',
-		'kelownachildcare.com',
-		'nona-cdc.com',
-		'boysandgirlsclubs.ca',
-		'goldencommunityresources.ca',
-		'cariboofamily.org',
-		'pdcrs.com',
-		'shuswapchildrens.ca',
-		'trailfair.ca',
-		'kootenaykids.ca',
-		'nbcy.org',
-		'quesnelbc.com ',
-		'spcrs.ca',
-		'readrightsociety.com',
-		'lcss.ca',
-		'missioncommunityservices.com',
-		'childcareoptions.ca',
-		'clementscentre.org',
-		'sfrs.ca',
-		'childcarevictoria.ca',
-		'wstcoast.org',
-		'sscs.ca',
-		'coastccrr.ca',
-		'volunteerrichmond.ca',
-		'vanymca.org',
-		// School Districts
-		'surreyschools.ca',
-		'sd42.ca',
-		'sd44.ca',
-		'westvancouverschools.ca',
-		'sd48seatosky.org',
-		'mpsd.ca',
-		// Child Development centers
-		'bvcdc.ca',
-		'cdcfsj.ca',
-		'kitimatcdc.ca',
-		'cdcpg.org',
-		'quesnelcdc.com',
-		'spcdc.ca',
-		'terracechilddevelopmentcentre.com',
-		'cdcyukon.ca',
-		'cccdca.org',
-		'starbrightokanagan.ca',
-		'osns.org',
-		'kamloopschildrenstherapy.com',
-		'ccscranbrook.ca',
-		'shuswapchildrens.ca',
-		'cvcda.ca',
-		'albernichildrenfirst.ca',
-		'clementscentre.org',
-		'bcfamilyhearing.com',
-		'fvcdc.org',
-		'rmcdc.com',
-		'sharesociety.ca',
-		'sccss.ca',
-		'bc-cfa.org',
-		// Uncategorized
-		'cbal.org',
-		'deltakids.ca',
-		'abbotsfordcommunityservices.com',
-		'reachchild.org',
-		'ymca.ca',
-		'bvcdc.ca',
-		'unitedwaycso.com',
-		'bcacdi.org',
-		'sccssociety.org',
-		'kelownachildcare.com',
-		'sfrs.ca',
-		'catchcoalition.ca',
-		'noeyc.ca',
-		'FNHA.ca',
-		'vpl.ca',
-		'actcommunity.ca',
-		'womenscontact.org',
-		'dalailamacenter.org',
-		'heartmindonline.org',
-	);
 
 	/**
 	 * @var value of the learner/organizer field
@@ -184,7 +40,7 @@ class Validate_By_Domain_Public {
 	/**
 	 * @var array list of problem domains
 	 */
-	private $spam_domains = array(
+	private $spam_domains = [
 		'marvsz.com',
 		'kellergy.com',
 		'pixymix.com',
@@ -195,16 +51,16 @@ class Validate_By_Domain_Public {
 		'ultramoonbear.com',
 		'islaby.com',
 		'360ezzz.com',
-	);
+	];
 
 	/**
 	 * @var array list of top level domains associated with spam
 	 */
-	private $spam_tld = array(
+	private $spam_tld = [
 		'ru',
 		'pl',
 		'eu',
-	);
+	];
 
 	/**
 	 * Initialize the class and set its properties.
@@ -222,18 +78,12 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
-	 * set different field values depending on prod or dev env
+	 * set the value according to user prefs
 	 */
 	public function setFieldNum() {
-		$host = parse_url( network_site_url(), PHP_URL_HOST );
 
-		if ( 0 === strcmp( 'earlyyearsbc.ca', $host ) ) {
-			$field_val = '155';
-		} else {
-			$field_val = '3';
-		}
-
-		$this->field_val = $field_val;
+		$options         = get_option( 'validate_by_domain_settings' );
+		$this->field_val = $options['field_num'];
 
 	}
 
@@ -255,7 +105,7 @@ class Validate_By_Domain_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-//		wp_enqueue_style( $this->bc_validate, plugin_dir_url( __FILE__ ) . 'css/bc-validate-public.css', array(), $this->version, 'all' );
+		//		wp_enqueue_style( $this->bc_validate, plugin_dir_url( __FILE__ ) . 'css/bc-validate-public.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -276,7 +126,7 @@ class Validate_By_Domain_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-//		wp_enqueue_script( $this->bc_validate, plugin_dir_url( __FILE__ ) . 'js/plugin-name-public.js', array( 'jquery' ), $this->version, false );
+		//		wp_enqueue_script( $this->bc_validate, plugin_dir_url( __FILE__ ) . 'js/plugin-name-public.js', array( 'jquery' ), $this->version, false );
 	}
 
 	/**
@@ -285,21 +135,27 @@ class Validate_By_Domain_Public {
 	 */
 	public function signupUserBC() {
 		global $bp;
-		$field_val = 'field_' . $this->field_val;
 		if ( isset( $_POST ) && ( 'request-details' != $bp->signup->step ) ) {
 			return;
 		}
+		$field_val = 'field_' . $this->field_val;
+		$options   = get_option( 'validate_by_domain_settings' );
 
-		// Filter email addresses for Organizers, check for spam domains on Learners
-		if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
-			$domain = $this->parseEmail( $_POST['signup_email'] );
-			$valid  = $this->isBCDomain( $domain );
+		// condition is that the user has enabled this feature
+		if ( 1 === $options['validate_enable'] ) {
+			
+			// Filter email addresses for Organizers, check for spam domains on Learners
+			if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
+				$domain = $this->parseEmail( $_POST['signup_email'] );
+				$valid  = $this->isWhiteListedDomain( $domain );
 
-			if ( false == $valid ) {
-				$bp->signup->errors['signup_email'] = 'Please use an email address from an allowed agency or institution within British Columbia';
+				if ( false == $valid ) {
+					$bp->signup->errors['signup_email'] = 'Please use an email address from an authorized domain.';
+				}
 			}
 		}
 
+		// opinionated default blacklist
 		if ( 0 === strcmp( $_POST[ $field_val ], 'Learner' ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$spam   = $this->isSpamDomain( $domain );
@@ -333,13 +189,28 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
-	 * Compares the domain of the users email to a list of BC institution domains
+	 * Get the whitelisted domains
+	 */
+
+	public function parseWhiteList() {
+		$options = get_option( 'validate_by_domain_settings' );
+
+		// Make array of domains using end of line as delimiter, strip whitespace and carriage returns etc
+		$whitelist = array_map( 'trim', explode( PHP_EOL, $options['validate_whitelist'] ) );
+
+		return $whitelist;
+	}
+
+
+	/**
+	 * Compares the domain of the users email to a list of BC institution
+	 * domains
 	 *
 	 * @param string $domain
 	 *
 	 * @return boolean
 	 */
-	private function isBCDomain( $domain ) {
+	private function isWhiteListedDomain( $domain ) {
 
 		if ( empty( $domain ) ) {
 			return false;
@@ -349,7 +220,7 @@ class Validate_By_Domain_Public {
 		$base_domain = $this->getBaseDomain( $domain );
 
 		// return true if the domain is in the list
-		if ( in_array( $base_domain, $this->bc_domains ) ) {
+		if ( in_array( $base_domain, $this->parseWhiteList() ) ) {
 			return true;
 		}
 
@@ -412,33 +283,6 @@ class Validate_By_Domain_Public {
 	}
 
 	/**
-	 * Adds a dropdown list of BC Institutions to the signup form
-	 *
-	 * @param type $errors
-	 */
-	public function signupExtraBC( $errors ) {
-		// Select list for BC Institutions
-		$html = '<div class="radio">
-					<span class="label">Position/Role (required)</span>';
-		if ( is_object( $errors ) ) {
-
-			$html .= '<p class="error">' . $errors->get_error_message( 'eypd_role' ) . '</p>';
-		}
-
-		$html .= '<div id="eypd_role" class="input-options radio-button-options">
-					<label for="organizer" class="option-label">
-					<input  type="radio" name="eypd_role" id="organizer" value="Organizer">Organizer</label>
-					<label for="learner" class="option-label">
-					<input  type="radio" name="eypd_role" id="learner" value="Learner">Learner</label>
-					</div>';
-		$html .= '<p class="description">Learner — you are primarily looking for training events. Organizer — you are primarily posting training events on this site.</p>';
-		$html .= '</div>';
-		$html .= '</div>';
-
-		echo $html;
-	}
-
-	/**
 	 * At the moment of signup, store a post value in wp_signups table
 	 *
 	 * @param array $usermeta
@@ -449,14 +293,15 @@ class Validate_By_Domain_Public {
 		$field_val = 'field_' . $this->field_val;
 
 		if ( isset( $_POST[ $field_val ] ) ) {
-			$usermeta['eypd_role'] = $_POST[ $field_val ];
+			$usermeta['vbd_role'] = $_POST[ $field_val ];
 		}
 
 		return $usermeta;
 	}
 
 	/**
-	 * At the moment after signup, during activation, update capabilities to contributor
+	 * At the moment after signup, during activation, update capabilities to
+	 * contributor
 	 *
 	 * @param $user_id
 	 *
@@ -476,11 +321,13 @@ class Validate_By_Domain_Public {
 
 			$meta = maybe_unserialize( $meta->meta );
 
-			//check if the signup usermeta value is present
-			if ( isset( $meta['eypd_role'] ) && 0 === strcmp( 'Organizer', $meta['eypd_role'] ) ) {
-				$current->set_role( 'contributor' );
-			}
+			// Get the plugin options for the user role
+			$options = get_option( 'validate_by_domain_settings' );
 
+			//check if the signup usermeta value is present
+			if ( isset( $meta['vbd_role'] ) && 0 === strcmp( 'Organizer', $meta['vbd_role'] ) ) {
+				$current->set_role( $options['validate_role'] );
+			}
 		}
 
 		return $user_id;

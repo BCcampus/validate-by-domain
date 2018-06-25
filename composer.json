@@ -1,0 +1,37 @@
+{
+  "name": "bccampus/validate-by-domain",
+  "description": "During self-registration, provides a mechanism to validate whether an email address is part of a whitelist of domains",
+  "type": "wordpress-plugin",
+  "version": "1.2.0",
+  "homepage": "https://github.com/bccampus/validate-by-domain",
+  "license": "GPLv3 or later",
+  "authors": [
+    {
+      "name": "Brad Payne",
+      "homepage": "https://github.com/bdolor"
+    },
+    {
+      "name": "Alex Paredes",
+      "homepage": "https://github.com/alexpflores"
+    }
+  ],
+  "config": {
+    "platform": {
+      "php": "7.0.30"
+    }
+  },
+  "require": {
+    "php": ">=7.0"
+  },
+    "require-dev": {
+      "humanmade/coding-standards": "^0.3"
+    },
+    "scripts": {
+      "test": [
+        "@standards"
+      ],
+      "standards": [
+        "vendor/bin/phpcs --standard=phpcs.ruleset.xml ."
+      ]
+    }
+  }

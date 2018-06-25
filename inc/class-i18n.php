@@ -1,16 +1,17 @@
 <?php
 
-/** 
+/**
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
  * @since      1.0.0
  *
  * @package    Validate_By_Domain
- * @subpackage Validate_By_Domain/includes
+ * @subpackage Validate_By_Domain/inc
  */
+namespace ValidateByDomain;
 
-class Validate_By_Domain_i18n {
+class I18n {
 
 	/**
 	 * The domain specified for this plugin.

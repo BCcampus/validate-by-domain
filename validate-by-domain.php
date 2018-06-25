@@ -12,8 +12,8 @@
  *
  * @wordpress-plugin
  * Plugin Name:       BC Instititutions Domain Validator
- * Description:       Created for the Early years project. Provides a mechanism to validate whether a user's email address is part of the BC Post-Secondary System
- * Version:           1.0.0
+ * Description:       During self-registration, provides a mechanism to validate whether an email address is part of a whitelist of domains
+ * Version:           1.2.0
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       validate-by-domain
@@ -27,20 +27,20 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-plugin-name-activator.php
+ * This action is documented in inc/class-plugin-name-activator.php
  */
 function activate_bc_validate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-validate-by-domain-activator.php';
-	Validate_By_Domain_Activator::activate();
+	require_once plugin_dir_path( __FILE__ ) . 'inc/class-activator.php';
+	ValidateByDomain\Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-plugin-name-deactivator.php
+ * This action is documented in inc/class-plugin-name-deactivator.php
  */
 function deactivate_bc_validate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-validate-by-domain-deactivator.php';
-	Validate_By_Domain_Deactivator::deactivate();
+	require_once plugin_dir_path( __FILE__ ) . 'inc/class-deactivator.php';
+	ValidateByDomain\Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_bc_validate' );
@@ -50,7 +50,7 @@ register_deactivation_hook( __FILE__, 'deactivate_bc_validate' );
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-validate-by-domain.php';
+require plugin_dir_path( __FILE__ ) . 'inc/class-vbd.php';
 
 /**
  * Begins execution of the plugin.
@@ -63,7 +63,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-validate-by-domain.php';
  */
 function run_validate_by_domain() {
 
-	$plugin = new Validate_By_Domain();
+	$plugin = new ValidateByDomain\Vbd();
 	$plugin->run();
 
 }
