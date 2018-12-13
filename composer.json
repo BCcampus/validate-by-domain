@@ -17,14 +17,17 @@
   ],
   "config": {
     "platform": {
-      "php": "7.0.30"
+      "php": "7.1"
     }
   },
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.1"
   },
     "require-dev": {
-      "humanmade/coding-standards": "^0.3"
+      "humanmade/coding-standards": "^0.5.0",
+      "fig-r/psr2r-sniffer": "^0.5.0",
+      "squizlabs/php_codesniffer": "^3.3.2",
+      "phpunit/phpunit": "^6.5.13"
     },
     "scripts": {
       "test": [

@@ -24,12 +24,12 @@ class Options {
 	 * Register the plugin settings, create fields
 	 */
 	function plugin_settings_init() {
+		$page    = 'validate_by_domain';
+		$options = 'validate_by_domain';
 
 		$args = [
 			'sanitize_callback' => [ $this, 'sanitize_input' ],
 		];
-
-		$page = $options = 'validate_by_domain';
 
 		register_setting(
 			$options,

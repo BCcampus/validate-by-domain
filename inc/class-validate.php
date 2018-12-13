@@ -135,7 +135,7 @@ class Validate {
 	 */
 	public function signupUserBC() {
 		global $bp;
-		if ( isset( $_POST ) && ( 'request-details' != $bp->signup->step ) ) {
+		if ( isset( $_POST ) && ( 'request-details' !== $bp->signup->step ) ) {
 			return;
 		}
 		$field_val = 'field_' . $this->field_val;
@@ -143,13 +143,13 @@ class Validate {
 
 		// condition is that the user has enabled this feature
 		if ( 1 === $options['validate_enable'] ) {
-			
+
 			// Filter email addresses for Organizers, check for spam domains on Learners
 			if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
 				$domain = $this->parseEmail( $_POST['signup_email'] );
 				$valid  = $this->isWhiteListedDomain( $domain );
 
-				if ( false == $valid ) {
+				if ( false === $valid ) {
 					$bp->signup->errors['signup_email'] = 'Your email must match the Internet domain name of your organization.';
 				}
 			}
@@ -160,7 +160,7 @@ class Validate {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$spam   = $this->isSpamDomain( $domain );
 
-			if ( true == $spam ) {
+			if ( true === $spam ) {
 				$bp->signup->errors['signup_email'] = 'error';
 			}
 		}
@@ -245,7 +245,7 @@ class Validate {
 		$tld_domain  = $this->getTopLevelDomain( $domain );
 
 		// return true if it's from a spam domain
-		if ( in_array( $base_domain, $this->spam_domains ) || in_array( $tld_domain, $this->spam_tld ) ) {
+		if ( in_array( $base_domain, $this->spam_domains, true ) || in_array( $tld_domain, $this->spam_tld, true ) ) {
 			return true;
 		}
 
