@@ -13,7 +13,7 @@
  * @wordpress-plugin
  * Plugin Name:       BC Instititutions Domain Validator
  * Description:       During self-registration, provides a mechanism to validate whether an email address is part of a whitelist of domains
- * Version:           1.2.0
+ * Version:           1.3.0
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       validate-by-domain
@@ -26,31 +26,25 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * The code that runs during plugin activation.
- * This action is documented in inc/class-plugin-name-activator.php
+ * include files
  */
-function activate_bc_validate() {
-	require_once plugin_dir_path( __FILE__ ) . 'inc/class-activator.php';
+require plugin_dir_path( __FILE__ ) . 'inc/class-activator.php';
+require plugin_dir_path( __FILE__ ) . 'inc/class-deactivator.php';
+require plugin_dir_path( __FILE__ ) . 'inc/class-vbd.php';
+
+
+register_activation_hook( __FILE__, function () {
 	ValidateByDomain\Activator::activate();
-}
+} );
 
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in inc/class-plugin-name-deactivator.php
- */
-function deactivate_bc_validate() {
-	require_once plugin_dir_path( __FILE__ ) . 'inc/class-deactivator.php';
+register_deactivation_hook( __FILE__, function () {
 	ValidateByDomain\Deactivator::deactivate();
-}
-
-register_activation_hook( __FILE__, 'activate_bc_validate' );
-register_deactivation_hook( __FILE__, 'deactivate_bc_validate' );
+} );
 
 /**
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'inc/class-vbd.php';
 
 /**
  * Begins execution of the plugin.
@@ -61,10 +55,6 @@ require plugin_dir_path( __FILE__ ) . 'inc/class-vbd.php';
  *
  * @since    1.0.0
  */
-function run_validate_by_domain() {
 
-	$plugin = new ValidateByDomain\Vbd();
-	$plugin->run();
-
-}
-run_validate_by_domain();
+$plugin = new ValidateByDomain\Vbd();
+$plugin->run();

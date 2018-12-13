@@ -88,48 +88,6 @@ class Validate {
 	}
 
 	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in BC_Validate_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The BC_Validate_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-		//		wp_enqueue_style( $this->bc_validate, plugin_dir_url( __FILE__ ) . 'css/bc-validate-public.css', array(), $this->version, 'all' );
-	}
-
-	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in BC_Validate_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The BC_Validate_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-		//		wp_enqueue_script( $this->bc_validate, plugin_dir_url( __FILE__ ) . 'js/plugin-name-public.js', array( 'jquery' ), $this->version, false );
-	}
-
-	/**
 	 * Validates the user input and returns appropriate error.
 	 *
 	 */
@@ -191,7 +149,6 @@ class Validate {
 	/**
 	 * Get the whitelisted domains
 	 */
-
 	public function parseWhiteList() {
 		$options = get_option( 'validate_by_domain_settings' );
 
@@ -220,7 +177,7 @@ class Validate {
 		$base_domain = $this->getBaseDomain( $domain );
 
 		// return true if the domain is in the list
-		if ( in_array( $base_domain, $this->parseWhiteList() ) ) {
+		if ( in_array( $base_domain, $this->parseWhiteList(), true ) ) {
 			return true;
 		}
 

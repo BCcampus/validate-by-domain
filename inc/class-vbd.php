@@ -53,7 +53,7 @@ class Vbd {
 	public function __construct() {
 
 		$this->bc_validate = 'validate-by-domain';
-		$this->version     = '1.0.0';
+		$this->version     = '1.3.0';
 
 		$this->load_dependencies();
 		$this->set_locale();
