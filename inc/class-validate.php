@@ -91,7 +91,7 @@ class Validate {
 	 * Validates the user input and returns appropriate error.
 	 *
 	 */
-	public function signupUserBC() {
+	public function signUpUser() {
 		global $bp;
 		if ( isset( $_POST ) && ( 'request-details' !== $bp->signup->step ) ) {
 			return;
@@ -100,7 +100,9 @@ class Validate {
 		$options   = get_option( 'validate_by_domain_settings' );
 
 		// condition is that the user has enabled this feature
-		if ( 1 === $options['validate_enable'] ) {
+		// and that they have specified a field number other than default
+		// will check against whitelist
+		if ( 1 === $options['validate_enable'] && ( 0 !== $options['field_num'] ) ) {
 
 			// Filter email addresses for Organizers, check for spam domains on Learners
 			if ( 0 === strcmp( $_POST[ $field_val ], 'Organizer' ) ) {
@@ -113,8 +115,8 @@ class Validate {
 			}
 		}
 
-		// opinionated default blacklist
-		if ( 0 === strcmp( $_POST[ $field_val ], 'Learner' ) ) {
+		// will only check that the email is not spam
+		if ( 0 === strcmp( $_POST[ $field_val ], 'Learner' ) && ( 0 !== $options['field_num'] ) ) {
 			$domain = $this->parseEmail( $_POST['signup_email'] );
 			$spam   = $this->isSpamDomain( $domain );
 
@@ -123,6 +125,14 @@ class Validate {
 			}
 		}
 
+		if ( 1 === $options['validate_enable'] && ( 0 === $options['field_num'] ) ) {
+			$domain = $this->parseEmail( $_POST['signup_email'] );
+			$valid  = $this->isWhiteListedDomain( $domain );
+
+			if ( false === $valid ) {
+				$bp->signup->errors['signup_email'] = 'Your email must match the Internet domain name of your organization.';
+			}
+		}
 	}
 
 	/**
@@ -246,7 +256,7 @@ class Validate {
 	 *
 	 * @return array $usermeta
 	 */
-	public function signupMetaBC( $usermeta ) {
+	public function signUpMeta( $usermeta ) {
 		$field_val = 'field_' . $this->field_val;
 
 		if ( isset( $_POST[ $field_val ] ) ) {

@@ -33,13 +33,17 @@ require plugin_dir_path( __FILE__ ) . 'inc/class-deactivator.php';
 require plugin_dir_path( __FILE__ ) . 'inc/class-vbd.php';
 
 
-register_activation_hook( __FILE__, function () {
-	ValidateByDomain\Activator::activate();
-} );
+register_activation_hook(
+	__FILE__, function () {
+		ValidateByDomain\Activator::activate();
+	}
+);
 
-register_deactivation_hook( __FILE__, function () {
-	ValidateByDomain\Deactivator::deactivate();
-} );
+register_deactivation_hook(
+	__FILE__, function () {
+		ValidateByDomain\Deactivator::deactivate();
+	}
+);
 
 /**
  * The core plugin class that is used to define internationalization,

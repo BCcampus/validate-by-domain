@@ -156,8 +156,8 @@ class Vbd {
 		$plugin_public = new Validate( $this->get_bc_validate(), $this->get_version() );
 		$honey_pot     = new HoneyPot();
 
-		$this->loader->add_filter( 'bp_signup_validate', $plugin_public, 'signupUserBC' );
-		$this->loader->add_filter( 'bp_signup_usermeta', $plugin_public, 'signupMetaBC' );
+		$this->loader->add_filter( 'bp_signup_validate', $plugin_public, 'signUpUser' );
+		$this->loader->add_filter( 'bp_signup_usermeta', $plugin_public, 'signUpMeta' );
 		$this->loader->add_filter( 'bp_core_activate_account', $plugin_public, 'mapRoleToCapability' );
 		$this->loader->add_action( 'bp_after_signup_profile_fields', $honey_pot, 'addHoneyPot' );
 		$this->loader->add_filter( 'bp_core_validate_user_signup', $honey_pot, 'checkHoneyPot' );

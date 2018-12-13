@@ -2,6 +2,7 @@
 /**
  * All of the functionality for the plugins options page in the dashboard
  */
+
 namespace ValidateByDomain;
 
 class Options {
@@ -53,6 +54,14 @@ class Options {
 		);
 
 		add_settings_field(
+			'validate_whitelist',
+			__( 'Whitelist', 'validate-by-domain' ),
+			[ $this, 'whitelist_render' ],
+			$page,
+			$options . '_section'
+		);
+
+		add_settings_field(
 			'field_num',
 			__( 'Field Number', 'validate-by-domain' ),
 			[ $this, 'field_render' ],
@@ -68,14 +77,6 @@ class Options {
 			$options . '_section'
 		);
 
-		add_settings_field(
-			'validate_whitelist',
-			__( 'Whitelist', 'validate-by-domain' ),
-			[ $this, 'whitelist_render' ],
-			$page,
-			$options . '_section'
-		);
-
 	}
 
 	function field_render() {
@@ -86,7 +87,8 @@ class Options {
 			$options['field_num'] = 0;
 		}
 
-		echo "<input type='text' name='validate_by_domain_settings[field_num]' value='{$options['field_num']}'></br><small class='form-text text-muted'>Integrates with buddypress - set the field ID of the form element on a sign up form.</small>";
+		echo "<input type='text' name='validate_by_domain_settings[field_num]' value='{$options['field_num']}'></br>
+        <small class='form-text text-muted'>[OPTIONAL] Set to '0' to deactivate. Integrates with buddypress - set the field ID of the form element on a sign up form.</small>";
 	}
 
 	/**
@@ -115,7 +117,10 @@ class Options {
 		<?php
 		wp_dropdown_roles( $role );
 		?>
-		</select> </br><small class='form-text text-muted'>The WP role that new users will be put into if their email domain matches one of the whitelisted domains.</small>
+		</select> </br>
+		<small class='form-text text-muted'>[OPTIONAL] Depends on 'Field Number' being set properly. The WP role that
+			new users will be put into if their email domain matches one of the whitelisted domains.
+		</small>
 		<?php
 	}
 
