@@ -93,9 +93,10 @@ class Validate {
 	 */
 	public function signUpUser() {
 		global $bp;
-		if ( isset( $_POST ) && ( 'request-details' !== $bp->signup->step ) ) {
+		if ( isset( $_POST['_wpnonce'] ) && ( 'request-details' !== $bp->signup->step ) ) {
 			return;
 		}
+
 		$field_val = 'field_' . $this->field_val;
 		$options   = get_option( 'validate_by_domain_settings' );
 
@@ -259,7 +260,7 @@ class Validate {
 	public function signUpMeta( $usermeta ) {
 		$field_val = 'field_' . $this->field_val;
 
-		if ( isset( $_POST[ $field_val ] ) ) {
+		if ( isset( $_POST[ $field_val ] ) && ( false !== wp_verify_nonce( $_POST['_wpnonce'] ) ) ) {
 			$usermeta['vbd_role'] = $_POST[ $field_val ];
 		}
 
@@ -283,8 +284,7 @@ class Validate {
 		} else {
 			$current = get_user_by( 'id', $user_id );
 
-			$query = $wpdb->prepare( 'SELECT `meta` FROM `wp_signups` WHERE `user_login` = %s ', $current->user_login );
-			$meta  = $wpdb->get_row( $query );
+			$meta = $wpdb->get_row( $wpdb->prepare( 'SELECT `meta` FROM `wp_signups` WHERE `user_login` = %s ', $current->user_login ) );
 
 			$meta = maybe_unserialize( $meta->meta );
 

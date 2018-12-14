@@ -27,7 +27,13 @@
     <!-- Re-enable rules we agree with -->
     <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
 
-    <exclude-pattern>/vendor/*</exclude-pattern>
-    <exclude-pattern>/tests/*</exclude-pattern>
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>tests/*</exclude-pattern>
+
+    <!-- justfication is that we're hooking into sign up events which check nonces -->
+    <rule ref="WordPress.CSRF.NonceVerification.NoNonceVerification">
+        <exclude-pattern>inc/class-validate.php</exclude-pattern>
+        <exclude-pattern>inc/class-honeypot.php</exclude-pattern>
+    </rule>
 
 </ruleset>

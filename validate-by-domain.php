@@ -25,6 +25,12 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+/** @var TYPE_NAME $composer */
+$composer = __DIR__ . '/vendor/autoload.php';
+if ( file_exists( $composer ) ) {
+	require $composer;
+}
+
 /**
  * include files
  */
@@ -45,10 +51,6 @@ register_deactivation_hook(
 	}
 );
 
-/**
- * The core plugin class that is used to define internationalization,
- * dashboard-specific hooks, and public-facing site hooks.
- */
 
 /**
  * Begins execution of the plugin.
