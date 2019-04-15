@@ -26,7 +26,8 @@ install:
 - node -v
 - composer install
 before_script:
-- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.1" ]] && php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.1" ]] && php -v | grep -q 'Xdebug'; then phpenv
+  config-rm xdebug.ini; fi
 - bash bin/install-wp-tests.sh tlpd_test root '' localhost $WP_VERSION
 script:
 - vendor/bin/phpunit --configuration=phpunit.xml
@@ -40,3 +41,13 @@ before_deploy:
 - cd ../
 - wp dist-archive $TRAVIS_PROJECT_SLUG $TRAVIS_BUILD_DIR/$TRAVIS_PROJECT_SLUG-$TRAVIS_TAG.zip
 - cd $TRAVIS_BUILD_DIR
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: kzC/uwuXiSky+UpI5+jyOuwpSNyP8lUgt2yke7vLt+kT6aJU8ZXhKzHXLixp2VLbz7pHa5+x9QPn0Dn/OSo/hhKXyXpw13s8ZPpl0thJv/37JDtyC/d1qSK1WAl47pERfQH8thUOr+KMnpigBaNHbDOXj2CKt2gP+b//Lcc35auTysJOhIeW3pVkO/QB+dheXTAdxTRH+gjOizWJHF4RxkYLai8YlLY1z/YPR/lh7DGj+ojLN7cI9hopRlghK3Wduf1YUnroXAh24nteAhjaPSExWGf7IG2KNb5puf2O1+epTFlw1OUHCTWfVvETfJJJ4RHUqX4radE3Dv0P8Hyig2gYJTMBiIDki1U6EtIL2oRMGLMO+o9zM72yRlcRDP8n04pzgGFVJ1fsK6RMVlBKOaA8ICsI/HoHY0mNBRxqELZXBdl09CWcLywWqSw6HUGPxHpvHbmJZbvT01/n9txYBxqt+0HUrHQ0RbQI5EPx8HOYgheFXqi2yomZKGOQBzllh2UXyAVik/U02D9Cb4FwQ4y/N7KpYkFQ3G4jFKfB5WDke+Huv/KT+llgBUsosia1g2dwOMYHtkf6MhndH5HbChSPGYszNnSMKL1dA/hMCoSelk4KZ/gY7tywb7+1vUBjCApCVQiYq4bmRPNn4uMJSu5IUzVHFuS9bauPyPl0P0w=
+  file: validate-by-domain-$TRAVIS_TAG.zip
+  on:
+  tags: true
+  repo: BCcampus/validate-by-domain
+  branch: dev
