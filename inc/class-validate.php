@@ -150,7 +150,7 @@ class Validate {
 				$valid  = $this->isWhiteListedDomain( $domain );
 
 				if ( false == $valid ) {
-					$bp->signup->errors['signup_email'] = 'Your email must match the Internet domain name of your organization.';
+					$bp->signup->errors['signup_email'] = 'Your email must be associated with an authorized organization.';
 				}
 			}
 		}
